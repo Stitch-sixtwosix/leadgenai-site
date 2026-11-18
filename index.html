@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LeadGenAI — Pipeline for B2B businesses ads can't reach</title>
+<meta name="description" content="AI-built acquisition systems for niche B2B companies where Meta and Google Ads don't work: signal-based prospecting, multichannel outbound and booked meetings with the few hundred buyers who matter.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f1ea; --surface:#fbfaf6; --ink:#16181b; --muted:#5d6168; --line:#d9d4c8;
+    --accent:#e2531d; --accent-ink:#fff; --soft:#ece7dc; --good:#2f6b4f;
+    --serif:"Fraunces",Georgia,serif; --sans:"Inter Tight",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --bg:#121315; --surface:#1a1c1f; --ink:#ecebe6; --muted:#9a9ea5; --line:#2c2f34;
+      --accent:#ff6a33; --accent-ink:#121315; --soft:#202327; --good:#6fc39a;
+    }
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font:17px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+  .mono{font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+
+  /* nav */
+  nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0}
+  .logo{font-weight:600;font-size:19px;letter-spacing:-.01em;text-decoration:none}
+  .logo span{color:var(--accent)}
+  nav .links{display:flex;gap:28px;align-items:center;font-size:15px}
+  nav .links a{text-decoration:none;color:var(--muted)}
+  nav .links a:hover{color:var(--ink)}
+  .btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:var(--accent-ink);border:0;border-radius:6px;padding:13px 20px;font:600 15px var(--sans);text-decoration:none;cursor:pointer;transition:transform .15s ease,filter .15s ease}
+  .btn:hover{filter:brightness(1.06)}
+  .btn:active{transform:scale(.98)}
+  .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  nav .btn{padding:9px 16px;color:var(--accent-ink)}
+
+  /* hero */
+  .hero{padding:72px 0 88px;display:grid;grid-template-columns:1.25fr 1fr;gap:56px;align-items:center}
+  h1{font-family:var(--serif);font-weight:400;font-size:clamp(40px,6vw,68px);line-height:1.04;letter-spacing:-.02em}
+  h1 em{font-style:italic;color:var(--accent)}
+  .lede{margin:24px 0 32px;font-size:19px;color:var(--muted);max-width:34em}
+  .cta-row{display:flex;gap:12px;flex-wrap:wrap}
+
+  /* signal feed card */
+  .feed{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:0 1px 0 var(--line),0 24px 48px -32px rgba(0,0,0,.35)}
+  .feed header{display:flex;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--line)}
+  .feed .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--good);margin-right:8px;animation:pulse 2s infinite}
+  @keyframes pulse{50%{opacity:.35}}
+  .feed ul{list-style:none}
+  .feed li{padding:14px 18px;border-bottom:1px solid var(--line);display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:14.5px}
+  .feed li:last-child{border-bottom:0}
+  .tag{font-family:var(--mono);font-size:11px;padding:3px 7px;border-radius:4px;background:var(--soft);color:var(--muted);height:max-content;white-space:nowrap}
+  .feed li b{font-weight:600}
+  .feed li small{grid-column:2;color:var(--muted);font-size:13px}
+  @media (prefers-reduced-motion:reduce){.feed .dot{animation:none}}
+
+  /* sections */
+  section{padding:96px 0;border-top:1px solid var(--line)}
+  h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,4vw,44px);line-height:1.1;letter-spacing:-.015em;max-width:20em}
+  .sub{color:var(--muted);margin-top:16px;max-width:38em}
+
+  .problem{display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:48px}
+  .why{list-style:none;counter-reset:w}
+  .why li{counter-increment:w;padding:18px 0;border-top:1px solid var(--line);display:grid;grid-template-columns:40px 1fr}
+  .why li::before{content:"0" counter(w);font-family:var(--mono);font-size:13px;color:var(--accent);padding-top:3px}
+  .why b{display:block}
+  .why span{color:var(--muted);font-size:15.5px}
+  .quote{background:var(--ink);color:var(--bg);border-radius:10px;padding:36px;font-family:var(--serif);font-size:26px;line-height:1.3;align-self:start}
+  .quote small{display:block;margin-top:20px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;opacity:.6}
+
+  .tools{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:48px}
+  .tool{background:var(--surface);padding:30px 26px}
+  .tool .mono{color:var(--accent)}
+  .tool h3{font-size:20px;font-weight:600;margin:10px 0 8px;letter-spacing:-.01em}
+  .tool p{color:var(--muted);font-size:15.5px}
+
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:48px}
+  .step{border-top:2px solid var(--ink);padding-top:18px}
+  .step h3{font-size:18px;font-weight:600;margin:6px 0}
+  .step p{color:var(--muted);font-size:15px}
+
+  .fit{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:48px}
+  .fit div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:28px}
+  .fit h3{font-size:17px;margin-bottom:14px}
+  .fit ul{list-style:none}
+  .fit li{padding:8px 0 8px 26px;position:relative;font-size:15.5px;border-top:1px solid var(--line)}
+  .fit li:first-child{border-top:0}
+  .fit .yes li::before{content:"✓";position:absolute;left:0;color:var(--good);font-weight:600}
+  .fit .no li::before{content:"×";position:absolute;left:2px;color:var(--muted)}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:32px}
+  .chips span{border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:14px;color:var(--muted)}
+
+  /* form */
+  .contact{display:grid;grid-template-columns:1fr 1.1fr;gap:56px;align-items:start}
+  form{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:30px;display:grid;gap:16px}
+  label{display:grid;gap:6px;font-size:14px;font-weight:500}
+  input,select,textarea{font:16px var(--sans);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:12px 13px;width:100%}
+  input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:transparent}
+  textarea{min-height:96px;resize:vertical}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  form .btn{justify-content:center;padding:15px}
+  .note{font-size:13px;color:var(--muted)}
+  .ok{display:none;padding:14px;border-radius:6px;background:var(--soft);font-size:15px}
+
+  footer{padding:36px 0 48px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:14px;color:var(--muted)}
+
+  @media (max-width:880px){
+    .hero,.problem,.contact,.fit{grid-template-columns:1fr}
+    .tools{grid-template-columns:1fr}
+    .steps{grid-template-columns:1fr 1fr}
+    nav .links a:not(.btn){display:none}
+    section{padding:72px 0}
+    .hero{padding:40px 0 64px}
+  }
+  @media (max-width:520px){
+    .wrap{padding:0 16px}
+    .steps,.row{grid-template-columns:1fr}
+    .quote{font-size:22px;padding:28px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <a class="logo" href="#">leadgen<span>ai</span>.io</a>
+    <div class="links">
+      <a href="#problem">Why ads fail</a>
+      <a href="#tools">Tools</a>
+      <a href="#process">Process</a>
+      <a class="btn" href="#contact">Book a pipeline audit</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div>
+      <p class="mono">Acquisition for niche B2B</p>
+      <h1>Your buyers aren't scrolling. <em>So stop paying to interrupt them.</em></h1>
+      <p class="lede">When your market is 800 companies, not 8 million consumers, Meta and Google Ads burn budget on the wrong people. We build AI-powered acquisition systems that find the exact accounts showing buying signals and put you in front of the decision-maker.</p>
+      <div class="cta-row">
+        <a class="btn" href="#contact">Book a free pipeline audit →</a>
+        <a class="btn ghost" href="#tools">See the toolkit</a>
+      </div>
+    </div>
+
+    <div class="feed" aria-label="Example buying-signal feed">
+      <header><span class="mono"><span class="dot"></span>Signal feed</span><span class="mono">Example</span></header>
+      <ul>
+        <li><span class="tag">PERMIT</span><b>Regional cold-storage operator filed a 40,000 sq ft expansion</b><small>Matches ICP: food logistics · 3 contacts found</small></li>
+        <li><span class="tag">HIRING</span><b>Mid-size manufacturer posted a "Quality Compliance Manager" role</b><small>Trigger: new ISO audit cycle · VP Ops identified</small></li>
+        <li><span class="tag">TECH</span><b>Engineering firm dropped its legacy ERP vendor</b><small>Replacement window open · sequence drafted</small></li>
+        <li><span class="tag">FUNDING</span><b>Specialty chemicals distributor closed a growth round</b><small>Budget unlocked · warm intro path via 2nd-degree</small></li>
+      </ul>
+    </div>
+  </header>
+</div>
+
+<section id="problem">
+  <div class="wrap">
+    <p class="mono">The problem</p>
+    <h2>Paid social and search were built for mass markets. Yours isn't one.</h2>
+    <div class="problem">
+      <ul class="why">
+        <li><div><b>Your audience is too small to target</b><span>Ad platforms need large audiences to optimize. A few thousand plant managers or compliance officers never exits the "learning phase."</span></div></li>
+        <li><div><b>Nobody searches for what you sell</b><span>Buyers of specialized services don't Google "industrial wastewater consultant near me." They ask peers, or they wait for a trigger event.</span></div></li>
+        <li><div><b>Clicks cost more than the lead is worth</b><span>B2B keywords run $40–$150 a click, and most go to students, competitors and tire-kickers.</span></div></li>
+        <li><div><b>Long cycles, many stakeholders</b><span>One ad click doesn't move a six-person buying committee through a nine-month decision.</span></div></li>
+      </ul>
+      <blockquote class="quote">
+        In niche B2B, the win isn't more traffic. It's knowing <em>which</em> 50 accounts are ready this quarter and reaching them first.
+        <small>The LeadGenAI approach</small>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<section id="tools">
+  <div class="wrap">
+    <p class="mono">The toolkit</p>
+    <h2>Acquisition tools built for small, high-value markets.</h2>
+    <p class="sub">Each system is set up for your market, plugs into your CRM and runs on signals instead of spend.</p>
+    <div class="tools">
+      <div class="tool"><span class="mono">01 / Find</span><h3>Precision account mapping</h3><p>AI builds your total addressable list from registries, licenses, trade directories and firmographics, so you see every company that could buy, not just the ones in a database.</p></div>
+      <div class="tool"><span class="mono">02 / Detect</span><h3>Buying-signal monitoring</h3><p>Continuous tracking of permits, job posts, filings, funding, leadership changes, tech swaps and site visits. You get alerts when an account enters a buying window.</p></div>
+      <div class="tool"><span class="mono">03 / Reach</span><h3>Multichannel outbound</h3><p>Researched, personal sequences across email, LinkedIn, phone and direct mail, written for the specific trigger and role. Not spray-and-pray templates.</p></div>
+      <div class="tool"><span class="mono">04 / Enrich</span><h3>Decision-maker discovery</h3><p>Verified emails and direct dials for the whole buying committee: the champion, the economic buyer and the technical gatekeeper.</p></div>
+      <div class="tool"><span class="mono">05 / Convert</span><h3>Niche authority content</h3><p>Industry benchmark reports, calculators and briefings that give your outreach a reason to exist and earn replies from experts.</p></div>
+      <div class="tool"><span class="mono">06 / Measure</span><h3>Pipeline dashboard</h3><p>Every signal, touch and reply tracked to meetings and revenue, so you know cost per qualified meeting, not cost per click.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="wrap">
+    <p class="mono">How it works</p>
+    <h2>From blank CRM to booked meetings in about 30 days.</h2>
+    <div class="steps">
+      <div class="step"><span class="mono">Week 1</span><h3>Audit &amp; ICP</h3><p>We map your best customers, deal sizes and the triggers that preceded each win.</p></div>
+      <div class="step"><span class="mono">Week 2</span><h3>Build the universe</h3><p>Full account list plus signal sources configured for your vertical.</p></div>
+      <div class="step"><span class="mono">Week 3</span><h3>Launch outreach</h3><p>Domains warmed, sequences approved by you, first triggered accounts contacted.</p></div>
+      <div class="step"><span class="mono">Week 4+</span><h3>Meetings &amp; tuning</h3><p>Qualified meetings land on your calendar. We refine weekly against reply data.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="fit">
+  <div class="wrap">
+    <p class="mono">Is this for you?</p>
+    <h2>Built for businesses with a small market and a big contract value.</h2>
+    <div class="fit">
+      <div class="yes"><h3>Good fit</h3><ul>
+        <li>Deal sizes of $10k+ or high lifetime value</li>
+        <li>Total market of a few hundred to a few thousand companies</li>
+        <li>Paid ads tried, with expensive or junk leads</li>
+        <li>Growth still depends on referrals and the founder's network</li>
+      </ul></div>
+      <div class="no"><h3>Probably not a fit</h3><ul>
+        <li>Consumer products or low-ticket e-commerce</li>
+        <li>Businesses that need thousands of small leads a month</li>
+        <li>Markets where broad paid search already works profitably</li>
+        <li>No capacity to take sales calls</li>
+      </ul></div>
+    </div>
+    <div class="chips">
+      <span>Industrial &amp; manufacturing</span><span>Engineering services</span><span>Compliance &amp; regulatory</span><span>Specialty distribution</span><span>Commercial construction trades</span><span>Lab &amp; scientific</span><span>Logistics &amp; cold chain</span><span>Vertical SaaS</span><span>Professional services</span>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap contact">
+    <div>
+      <p class="mono">Free pipeline audit</p>
+      <h2>See which accounts in your market are ready to buy right now.</h2>
+      <p class="sub">Tell us about your business. Within 48 hours we'll send a short audit with your market size, the buying signals worth tracking, and a sample list of in-market accounts. No obligation.</p>
+    </div>
+    <form id="lead-form">
+      <div class="row">
+        <label>Name<input name="name" required autocomplete="name"></label>
+        <label>Work email<input name="email" type="email" required autocomplete="email"></label>
+      </div>
+      <div class="row">
+        <label>Company<input name="company" required autocomplete="organization"></label>
+        <label>Website<input name="website" type="url" placeholder="https://"></label>
+      </div>
+      <div class="row">
+        <label>Average deal size
+          <select name="deal_size" required>
+            <option value="">Select…</option><option>Under $5k</option><option>$5k–$25k</option><option>$25k–$100k</option><option>$100k+</option>
+          </select>
+        </label>
+        <label>Tried paid ads?
+          <select name="ads_tried">
+            <option value="">Select…</option><option>Yes, didn't work</option><option>Yes, mixed results</option><option>No</option>
+          </select>
+        </label>
+      </div>
+      <label>Who is your ideal customer?<textarea name="icp" placeholder="e.g. Mid-size food processors in the Midwest that need FSMA compliance support"></textarea></label>
+      <button class="btn" type="submit">Get my free audit →</button>
+      <p class="ok" id="ok" role="status">Thanks! We'll be in touch within 48 hours.</p>
+      <p class="note">We'll only use your details to prepare your audit.</p>
+    </form>
+  </div>
+</section>
+
+<div class="wrap">
+  <footer>
+    <span>© <span id="yr"></span> LeadGenAI · leadgenai.io</span>
+    <a href="mailto:hello@leadgenai.io">hello@leadgenai.io</a>
+  </footer>
+</div>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  // Set FORM_ENDPOINT to a Formspree / Basin / Zapier webhook URL to collect leads.
+  // Left empty, the form opens a pre-filled email to CONTACT_EMAIL instead.
+  const FORM_ENDPOINT = '';
+  const CONTACT_EMAIL = 'hello@leadgenai.io';
+  const form = document.getElementById('lead-form');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    if (FORM_ENDPOINT) {
+      try {
+        const r = await fetch(FORM_ENDPOINT, {method:'POST', body:data, headers:{Accept:'application/json'}});
+        if (!r.ok) throw new Error();
+        form.querySelectorAll('label,.row,button').forEach(el => el.style.display = 'none');
+        document.getElementById('ok').style.display = 'block';
+        return;
+      } catch { alert('Something went wrong. Please email ' + CONTACT_EMAIL); return; }
+    }
+    const body = [...data.entries()].map(([k,v]) => k + ': ' + v).join('\n');
+    location.href = 'mailto:' + CONTACT_EMAIL + '?subject=' + encodeURIComponent('Pipeline audit request – ' + data.get('company')) + '&body=' + encodeURIComponent(body);
+  });
+</script>
+</body>
+</html>

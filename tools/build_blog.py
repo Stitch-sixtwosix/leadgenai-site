@@ -109,7 +109,7 @@ def page(title, desc, canonical, body, extra_head=""):
   <nav><a href="/#how">How it works</a><a href="/blog/">Blog</a><a class="btn" href="/#audit">Get a free audit</a></nav>
 </div></div>
 {body}
-<footer><div class="in"><span><a href="/">LeadGenAI</a><a href="/blog/">Blog</a><a href="mailto:contact@leadgenai.io">contact@leadgenai.io</a></span><span>© {datetime.date.today().year} LeadGenAI</span></div></footer>
+<footer><div class="in"><span><a href="/">LeadGenAI</a><a href="/blog/">Blog</a><a href="mailto:contact@leadgenai.io">contact@leadgenai.io</a></span><span>© {datetime.date.today().year} Duerr Imports, LLC. LeadGenAI is a brand of Duerr Imports, LLC.</span></div></footer>
 </body>
 </html>
 """

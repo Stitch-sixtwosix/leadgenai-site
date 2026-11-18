@@ -85,7 +85,15 @@ h2{font-size:clamp(34px,4.6vw,56px);max-width:18ch}
 .field{position:relative;background:var(--char);border:1px solid var(--line);border-radius:24px;padding:22px 22px 18px;box-shadow:0 40px 80px -40px rgba(0,0,0,.8)}
 .field header{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:13px;color:var(--soft);margin-bottom:14px}
 .field header b{color:var(--white);font-weight:600;font-size:14px}
-.field .stage{position:relative;aspect-ratio:1/0.82}
+.field .stage{position:relative;aspect-ratio:1/0.72}
+.phases{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:12px}
+.phases li{font-size:13px;font-weight:600;color:#8a8a8a;padding:8px 10px;border-radius:10px;background:#1f1f1f;transition:background-color 300ms ease,color 300ms ease}
+.phases li.on{background:var(--white);color:var(--black)}
+.cap{font-size:14px;line-height:1.45;color:#d6d6d6;min-height:2.9em;margin-bottom:6px}
+.legend{list-style:none;display:flex;flex-wrap:wrap;gap:6px 18px;font-size:12.5px;color:var(--soft);margin-top:10px}
+.legend li{display:flex;align-items:center;gap:7px}
+.legend i{width:9px;height:9px;border-radius:50%}
+.legend .g{background:#5a5a5a}.legend .p{background:var(--pink)}.legend .w{background:var(--white)}
 .field canvas{position:absolute;inset:0;width:100%;height:100%}
 .tag{position:absolute;z-index:2;pointer-events:none;background:var(--white);color:var(--black);font-size:12.5px;font-weight:600;line-height:1.25;padding:8px 11px 8px 10px;border-radius:10px;white-space:nowrap;box-shadow:0 10px 24px -8px rgba(0,0,0,.6);opacity:0;transform:translateY(6px) scale(.96);transition:opacity 260ms var(--ease),transform 260ms var(--ease)}
 .tag small{display:block;font-weight:500;color:var(--grey);font-size:11.5px}
@@ -273,15 +281,18 @@ footer.site nav a{text-decoration:none;color:#cfcfcf}
       </div>
     </div>
 
-    <div class="field rise" style="--t:200ms" aria-label="Example: a niche market shown as dots, with accounts lighting up as they show buying signals">
-      <header><b>Your market, one dot per company</b><span>Live example</span></header>
-      <div class="stage" id="stage"><canvas id="dots"></canvas></div>
+    <div class="field rise" style="--t:200ms">
+      <header><b>How your lead system works</b><span>Sample market</span></header>
+      <ol class="phases" aria-hidden="true"><li class="on">1 Map</li><li>2 Flag</li><li>3 Reach</li></ol>
+      <p class="cap" id="cap" aria-live="polite">Every dot is a company that fits your ideal customer profile.</p>
+      <div class="stage" id="stage" role="img" aria-label="Animated example: companies in a market shown as dots; some light up with buying signals, then their decision makers are contacted"><canvas id="dots"></canvas></div>
+      <ul class="legend" aria-hidden="true"><li><i class="g"></i>Fits your profile</li><li><i class="p"></i>Buying signal</li><li><i class="w"></i>Decision maker contacted</li></ul>
       <footer>
-        <div><b id="n-total">1,240</b>companies mapped</div>
+        <div><b id="n-total">0</b>companies mapped</div>
         <div class="hot"><b id="n-hot">0</b>showing buying signals</div>
-        <div><b id="n-ppl">0</b>decision makers found</div>
+        <div><b id="n-ppl">0</b>decision makers contacted</div>
       </footer>
-      <p class="note">Sample market: US industrial coatings suppliers. Signals shown are illustrative.</p>
+      <p class="note">Example: US industrial coatings suppliers. Companies and signals are illustrative.</p>
     </div>
   </div>
 </section>
@@ -466,7 +477,7 @@ footer.site nav a{text-decoration:none;color:#cfcfcf}
       <p class="direct">Prefer email? <a href="mailto:contact@leadgenai.io">contact@leadgenai.io</a></p>
     </div>
 
-    <form id="lead-form" action="https://formsubmit.co/contact@duerrimports.com" method="POST">
+    <form id="lead-form" action="https://formsubmit.co/contact@leadgenai.io" method="POST">
       <input type="hidden" name="_subject" value="New audit request from leadgenai.io">
       <input type="hidden" name="_template" value="table">
       <input type="hidden" name="_next" value="https://leadgenai.io/#audit">
@@ -513,8 +524,10 @@ footer.site nav a{text-decoration:none;color:#cfcfcf}
   document.body.classList.remove('no-js');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* Hero: the market as a dot grid. Accounts light up as they show signals. */
+  /* Hero: the lead system in three steps. 1 Map the market, 2 flag companies with signals, 3 reach their buying group. */
   const stage = document.getElementById('stage'), cv = document.getElementById('dots'), ctx = cv.getContext('2d');
+  const cap = document.getElementById('cap'), pills = [...document.querySelectorAll('.phases li')];
+  const $ = id => document.getElementById(id);
   const signals = [
     ['Hiring a plant manager','Ohio · 220 staff'],['New VP of Operations','Texas · 410 staff'],
     ['Permit filed: 40,000 sq ft','Georgia · 150 staff'],['Opened a second facility','Michigan · 95 staff'],
@@ -523,10 +536,14 @@ footer.site nav a{text-decoration:none;color:#cfcfcf}
     ['Supplier contract ending','Wisconsin · 340 staff'],['Hiring 6 technicians','Tennessee · 140 staff'],
     ['ISO audit coming up','Ohio · 75 staff'],['New CFO appointed','North Carolina · 520 staff']
   ];
-  let W, H, dpr, cols, rows, gap, r, dots = [], lit = [], hot = 0, ppl = 0, si = 0;
-  const tags = [];
+  const CAPS = [
+    'Map: every dot is a company that fits your ideal customer profile.',
+    'Flag: the system watches each company and lights up the ones showing a buying signal.',
+    'Reach: we find the buying group at each flagged company and start researched outreach.'
+  ];
+  let W, H, cols, rows, gap, r, dots = [], lit = [], hot = 0, ppl = 0, si = 0, mapped = 0, phase = -1;
   function layout() {
-    dpr = Math.min(devicePixelRatio || 1, 2);
+    const dpr = Math.min(devicePixelRatio || 1, 2);
     W = stage.clientWidth; H = stage.clientHeight;
     cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     gap = W < 420 ? 16 : 19; r = gap * 0.17;
@@ -534,23 +551,47 @@ footer.site nav a{text-decoration:none;color:#cfcfcf}
     const ox = (W - (cols - 1) * gap) / 2, oy = (H - (rows - 1) * gap) / 2;
     const old = dots; dots = [];
     for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) {
-      const i = dots.length; dots.push({ x: ox + x * gap, y: oy + y * gap, a: old[i] ? old[i].a : 0, t: old[i] ? old[i].t : 0 });
+      const o = old[dots.length] || { v: 0, a: 0, t: 0, ord: Math.random() };
+      dots.push({ ...o, x: ox + x * gap, y: oy + y * gap });
     }
-    document.getElementById('n-total').textContent = (cols * rows).toLocaleString('en-US');
+    lit.forEach(l => l.d = dots.find(d => d === l.d) || l.d);
+  }
+  function setPhase(p) {
+    phase = p; pills.forEach((li, i) => li.classList.toggle('on', i === p)); cap.textContent = CAPS[p];
+  }
+  function people(d) {
+    const k = 3 + ((Math.random() * 3) | 0), out = [];
+    for (let i = 0; i < k; i++) {
+      const ang = (i / k) * Math.PI * 2 + Math.random() * .6, rad = 26 + Math.random() * 10;
+      out.push({ x: Math.min(W - 6, Math.max(6, d.x + Math.cos(ang) * rad)), y: Math.min(H - 6, Math.max(6, d.y + Math.sin(ang) * rad)) });
+    }
+    return out;
   }
   function draw(now) {
     ctx.clearRect(0, 0, W, H);
     for (const d of dots) {
-      d.a += ((d.t) - d.a) * 0.08;
-      if (d.a > 0.01) {
-        const pulse = d.t ? (Math.sin(now / 380) + 1) / 2 : 0;
+      d.a += (d.t - d.a) * 0.08;
+      if (d.v <= 0) continue;
+      if (d.a > 0.02) {
+        const pulse = d.t === 1 ? (Math.sin(now / 380) + 1) / 2 : 0;
         ctx.beginPath(); ctx.arc(d.x, d.y, r + 7 + pulse * 3, 0, 7);
-        ctx.fillStyle = `rgba(255,79,129,${0.16 * d.a})`; ctx.fill();
+        ctx.fillStyle = `rgba(255,79,129,${0.18 * d.a})`; ctx.fill();
         ctx.beginPath(); ctx.arc(d.x, d.y, r + 1.6 * d.a, 0, 7);
-        ctx.fillStyle = d.a > 0.5 ? '#ff4f81' : '#555'; ctx.fill();
+        ctx.fillStyle = '#ff4f81'; ctx.globalAlpha = Math.max(.45, d.a); ctx.fill(); ctx.globalAlpha = 1;
       } else {
         ctx.beginPath(); ctx.arc(d.x, d.y, r, 0, 7);
-        ctx.fillStyle = d.mapped ? '#4a4a4a' : '#333'; ctx.fill();
+        ctx.fillStyle = `rgba(110,110,110,${0.75 * d.v})`; ctx.fill();
+      }
+    }
+    for (const l of lit) {
+      if (!l.ppl) continue;
+      l.k = Math.min(1, (l.k || 0) + 0.03);
+      for (const p of l.ppl) {
+        ctx.strokeStyle = `rgba(255,255,255,${0.45 * l.k})`; ctx.lineWidth = 1.2;
+        ctx.beginPath(); ctx.moveTo(l.d.x, l.d.y);
+        ctx.lineTo(l.d.x + (p.x - l.d.x) * l.k, l.d.y + (p.y - l.d.y) * l.k); ctx.stroke();
+        ctx.beginPath(); ctx.arc(l.d.x + (p.x - l.d.x) * l.k, l.d.y + (p.y - l.d.y) * l.k, 3.2, 0, 7);
+        ctx.fillStyle = '#fff'; ctx.fill();
       }
     }
     if (!reduce) requestAnimationFrame(draw);
@@ -560,40 +601,66 @@ footer.site nav a{text-decoration:none;color:#cfcfcf}
     el.innerHTML = `${s[0]}<small>${s[1]}</small>`;
     stage.appendChild(el);
     const tw = el.offsetWidth, th = el.offsetHeight;
-    let x = d.x + 14, y = d.y - th - 10;
-    if (x + tw > W) x = d.x - tw - 14;
-    if (y < 0) y = d.y + 12;
+    let x = d.x + 16, y = d.y - th - 14;
+    if (x + tw > W) x = d.x - tw - 16;
+    if (y < 0) y = d.y + 16;
     el.style.left = Math.max(0, x) + 'px'; el.style.top = y + 'px';
     requestAnimationFrame(() => el.classList.add('on'));
     return el;
   }
   function light() {
-    if (!dots.length) return;
-    // keep lit accounts apart so tags don't collide
     let d, tries = 0;
     do { d = dots[(Math.random() * dots.length) | 0]; tries++; }
-    while (tries < 40 && (d.t || lit.some(o => Math.abs(o.d.y - d.y) < 64 && Math.abs(o.d.x - d.x) < 240) || d.x < 20 || d.x > W - 20));
-    d.t = 1; d.mapped = true;
-    const el = tagFor(d, signals[si++ % signals.length]);
-    lit.push({ d, el });
-    hot++; ppl += 3 + ((Math.random() * 6) | 0);
-    document.getElementById('n-hot').textContent = hot;
-    document.getElementById('n-ppl').textContent = ppl;
-    if (lit.length > (W < 500 ? 2 : 3)) {
-      const o = lit.shift(); o.el.classList.remove('on');
-      setTimeout(() => o.el.remove(), 300);
-      o.d.t = 0.55; // stays marked as an account in play
+    while (tries < 60 && (d.t || d.x < 40 || d.x > W - 40 || d.y < 40 || d.y > H - 40 ||
+      lit.some(o => Math.abs(o.d.y - d.y) < 80 && Math.abs(o.d.x - d.x) < 240)));
+    d.t = 1;
+    lit.push({ d, el: tagFor(d, signals[si++ % signals.length]) });
+    $('n-hot').textContent = ++hot;
+  }
+  function reach() {
+    for (const l of lit) {
+      l.ppl = people(l.d); ppl += l.ppl.length;
+      l.el.querySelector('small').textContent = `${l.ppl.length} decision makers contacted`;
+    }
+    $('n-ppl').textContent = ppl;
+  }
+  function clearRound() {
+    for (const l of lit) { l.el.classList.remove('on'); setTimeout(() => l.el.remove(), 300); l.d.t = 0.5; }
+    lit = [];
+  }
+  const wait = ms => new Promise(res => setTimeout(res, ms));
+  const visible = () => new Promise(res => { const f = () => document.hidden ? setTimeout(f, 500) : res(); f(); });
+  async function run() {
+    setPhase(0);
+    const order = [...dots].sort((a, b) => a.ord - b.ord), total = order.length, t0 = performance.now();
+    await new Promise(res => {
+      const step = now => {
+        const k = Math.min(1, (now - t0) / 1800);
+        const n = Math.floor(k * total);
+        for (let i = mapped; i < n; i++) order[i].v = 1;
+        mapped = n; $('n-total').textContent = n.toLocaleString('en-US');
+        k < 1 ? requestAnimationFrame(step) : res();
+      };
+      requestAnimationFrame(step);
+    });
+    await wait(1400);
+    const per = W < 500 ? 2 : 3;
+    for (;;) {
+      await visible(); setPhase(1);
+      for (let i = 0; i < per; i++) { await wait(i ? 1100 : 600); light(); }
+      await wait(2000); setPhase(2); reach();
+      await wait(3600); clearRound(); await wait(500);
     }
   }
   layout();
   new ResizeObserver(() => { layout(); if (reduce) draw(0); }).observe(stage);
   if (reduce) {
-    for (let k = 0; k < 3; k++) light();
-    dots.forEach(d => d.a = d.t); draw(0);
+    dots.forEach(d => d.v = 1); $('n-total').textContent = dots.length.toLocaleString('en-US');
+    for (let k = 0; k < 2; k++) light(); reach(); setPhase(2);
+    pills.forEach(li => li.classList.add('on')); cap.textContent = CAPS.join(' ');
+    dots.forEach(d => d.a = d.t); lit.forEach(l => l.k = 1); draw(0);
   } else {
-    requestAnimationFrame(draw);
-    setTimeout(light, 700); setTimeout(light, 1500);
-    setInterval(() => { if (!document.hidden) light(); }, 2200);
+    requestAnimationFrame(draw); run();
   }
 
   /* Section entrances. */
@@ -608,7 +675,7 @@ footer.site nav a{text-decoration:none;color:#cfcfcf}
     const btn = form.querySelector('button[type=submit]');
     btn.disabled = true; btn.textContent = 'Sending…'; status.textContent = '';
     try {
-      const res = await fetch('https://formsubmit.co/ajax/contact@duerrimports.com', {
+      const res = await fetch('https://formsubmit.co/ajax/contact@leadgenai.io', {
         method: 'POST', headers: { Accept: 'application/json' }, body: new FormData(form)
       });
       const j = await res.json().catch(() => ({}));

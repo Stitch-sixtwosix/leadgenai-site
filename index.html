@@ -3,300 +3,585 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>LeadGenAI — Pipeline for B2B businesses ads can't reach</title>
-<meta name="description" content="AI-built acquisition systems for niche B2B companies where Meta and Google Ads don't work: signal-based prospecting, multichannel outbound and booked meetings with the few hundred buyers who matter.">
+<title>LeadGenAI · Acquisition for niche B2B markets</title>
+<meta name="description" content="Done-for-you acquisition for niche B2B companies where Meta and Google Ads don’t work. We map every company in your market, watch for buying signals and book the meetings.">
+<meta name="theme-color" content="#333231">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js')</script>
 <style>
-  :root{
-    --bg:#f4f1ea; --surface:#fbfaf6; --ink:#16181b; --muted:#5d6168; --line:#d9d4c8;
-    --accent:#e2531d; --accent-ink:#fff; --soft:#ece7dc; --good:#2f6b4f;
-    --serif:"Fraunces",Georgia,serif; --sans:"Inter Tight",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
-  }
-  @media (prefers-color-scheme:dark){
-    :root:not([data-theme="light"]){
-      --bg:#121315; --surface:#1a1c1f; --ink:#ecebe6; --muted:#9a9ea5; --line:#2c2f34;
-      --accent:#ff6a33; --accent-ink:#121315; --soft:#202327; --good:#6fc39a;
-    }
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{background:var(--bg);color:var(--ink);font:17px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
-  a{color:inherit}
-  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
-  .mono{font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+:root{
+  --bg:#eeecea; --surface:#e4e1dd; --ink:#333231; --muted:#605c58;
+  --accent:#5c6b54; --accent-ink:#fff; --field-1:#cdc3b6; --field-1-ink:#333231;
+  --on-dark:#eeecea; --on-dark-muted:#bdb8b2;
+  --step-small:clamp(.8125rem,.79rem + .1vw,.875rem);
+  --step-body:clamp(1.0625rem,1rem + .25vw,1.1875rem);
+  --step-lead:clamp(1.25rem,1.1rem + .7vw,1.625rem);
+  --step-head:clamp(2rem,1.3rem + 3.2vw,4rem);
+  --step-display:clamp(3rem,5.2vw,4.75rem);
+  --m:clamp(16px,2.2vw,32px);
+  --ease-out:cubic-bezier(.23,1,.32,1);
+  --font:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:400 var(--step-body)/1.5 var(--font);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img,video{display:block;max-width:100%;height:auto}
+a{color:inherit}
+h1,h2,h3{font-weight:600;letter-spacing:-.04em;line-height:.95;text-wrap:balance}
+p{text-wrap:pretty}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+::selection{background:var(--field-1)}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px;padding:0 var(--m)}
 
-  /* nav */
-  nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0}
-  .logo{font-weight:600;font-size:19px;letter-spacing:-.01em;text-decoration:none}
-  .logo span{color:var(--accent)}
-  nav .links{display:flex;gap:28px;align-items:center;font-size:15px}
-  nav .links a{text-decoration:none;color:var(--muted)}
-  nav .links a:hover{color:var(--ink)}
-  .btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:var(--accent-ink);border:0;border-radius:6px;padding:13px 20px;font:600 15px var(--sans);text-decoration:none;cursor:pointer;transition:transform .15s ease,filter .15s ease}
-  .btn:hover{filter:brightness(1.06)}
-  .btn:active{transform:scale(.98)}
-  .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
-  nav .btn{padding:9px 16px;color:var(--accent-ink)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--accent);color:var(--accent-ink);border:0;border-radius:0;padding:16px 24px;font:500 var(--step-body)/1 var(--font);text-decoration:none;cursor:pointer;transition:transform 160ms var(--ease-out),background-color 200ms ease}
+.btn:active{transform:scale(.97)}
+@media (hover:hover) and (pointer:fine){.btn:hover{background:#4e5c47}}
 
-  /* hero */
-  .hero{padding:72px 0 88px;display:grid;grid-template-columns:1.25fr 1fr;gap:56px;align-items:center}
-  h1{font-family:var(--serif);font-weight:400;font-size:clamp(40px,6vw,68px);line-height:1.04;letter-spacing:-.02em}
-  h1 em{font-style:italic;color:var(--accent)}
-  .lede{margin:24px 0 32px;font-size:19px;color:var(--muted);max-width:34em}
-  .cta-row{display:flex;gap:12px;flex-wrap:wrap}
+/* ---------- hero: the market as a ring of frames ---------- */
+.hero{position:relative;background:var(--ink);color:var(--on-dark);height:100svh;min-height:760px;max-height:1100px;overflow:hidden;
+  --rx:38.9vw; --ry:min(310px,34svh); --k:min(1,calc(100vw / 1440px))}
+.hero nav{position:absolute;inset:0 0 auto 0;display:flex;justify-content:space-between;align-items:center;padding:28px var(--m);z-index:3;font-size:var(--step-small)}
+.wordmark{font-weight:600;font-size:var(--step-body);letter-spacing:-.03em;text-decoration:none}
+.hero nav ul{display:flex;gap:28px;list-style:none}
+.hero nav ul a{text-decoration:none;color:var(--on-dark-muted);transition:color 200ms ease}
+.hero nav ul a:hover,.hero nav ul a:focus-visible{color:var(--on-dark)}
+.ring{position:absolute;inset:0;list-style:none}
+.ring li{position:absolute;left:calc(50% + var(--c) * var(--rx));top:calc(50% + var(--s) * var(--ry));width:calc(var(--w) * 1px * var(--k));transform:translate(-50%,-50%) rotate(var(--r));z-index:1}
+.ring button{display:block;width:100%;border:0;padding:0;background:none;cursor:pointer;transition:transform 240ms var(--ease-out),opacity 240ms ease}
+.ring img{width:100%;aspect-ratio:var(--ar);object-fit:cover;filter:grayscale(1) contrast(1.05) brightness(.82);transition:filter 300ms ease}
+.ring li.lit img{filter:none}
+.ring.focus button{opacity:.45}
+.ring.focus li.on button{opacity:1;transform:scale(1.12)}
+.ring li.on img{filter:none}
+.core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(640px,calc(100% - 2*var(--m)));text-align:center;z-index:2}
+.core h1{font-size:var(--step-display);line-height:.95}
+.core h1 .ln{display:block;overflow:hidden;padding-bottom:.06em}
+.core h1 .ln span{display:block}
+.readout{margin:24px auto 0;max-width:40ch;min-height:4.5em;color:var(--on-dark);font-size:var(--step-body);line-height:1.45}
+.readout b{font-weight:500}
+.readout small{display:block;font-size:var(--step-small);color:var(--on-dark-muted);margin-top:4px}
+.core .btn{margin-top:20px}
 
-  /* signal feed card */
-  .feed{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:0 1px 0 var(--line),0 24px 48px -32px rgba(0,0,0,.35)}
-  .feed header{display:flex;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--line)}
-  .feed .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--good);margin-right:8px;animation:pulse 2s infinite}
-  @keyframes pulse{50%{opacity:.35}}
-  .feed ul{list-style:none}
-  .feed li{padding:14px 18px;border-bottom:1px solid var(--line);display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:14.5px}
-  .feed li:last-child{border-bottom:0}
-  .tag{font-family:var(--mono);font-size:11px;padding:3px 7px;border-radius:4px;background:var(--soft);color:var(--muted);height:max-content;white-space:nowrap}
-  .feed li b{font-weight:600}
-  .feed li small{grid-column:2;color:var(--muted);font-size:13px}
-  @media (prefers-reduced-motion:reduce){.feed .dot{animation:none}}
+/* ---------- intro: why ads stall ---------- */
+.intro{padding:clamp(96px,12vw,200px) 0}
+.intro .col{grid-column:2/6;padding-top:64px}
+.intro h2{font-size:var(--step-head);margin-bottom:32px}
+.intro p{margin-bottom:1.1em;color:var(--ink)}
+.intro p:first-of-type{font-weight:500}
+.intro p.soft{color:var(--muted)}
+.intro figure{grid-column:7/13;position:relative;overflow:hidden}
+.intro figure img{width:100%;height:100%;max-height:820px;object-fit:cover;filter:grayscale(1) contrast(1.05);animation:drift 24s ease-in-out infinite alternate}
+@keyframes drift{from{transform:scale(1.02)}to{transform:scale(1.1) translate(-1.5%,1%)}}
+figcaption{font-size:var(--step-small);color:var(--muted);margin-top:10px}
 
-  /* sections */
-  section{padding:96px 0;border-top:1px solid var(--line)}
-  h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,4vw,44px);line-height:1.1;letter-spacing:-.015em;max-width:20em}
-  .sub{color:var(--muted);margin-top:16px;max-width:38em}
+/* ---------- showcase: the numbers, cut across one photograph ---------- */
+.board{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;padding:0 12px;margin-bottom:clamp(120px,14vw,220px)}
+.tile{aspect-ratio:1;position:relative;overflow:hidden}
+.tile.pic i{position:absolute;inset:0;background-image:url(assets/machine-shop-men-gpn-2000-000364.jpg);background-size:cover;background-position:center;filter:grayscale(1) contrast(1.08);transition:transform 500ms var(--ease-out)}
+@media (hover:hover) and (pointer:fine){.tile.pic:hover i{transform:scale(1.08)}}
+.tile.fact{padding:clamp(14px,1.4vw,24px);display:flex;flex-direction:column;justify-content:space-between}
+.tile.fact strong{font-size:clamp(2rem,3.6vw,3.5rem);font-weight:600;letter-spacing:-.04em;line-height:.95}
+.tile.fact p{font-size:var(--step-body);line-height:1.35}
+.tile.head{background:var(--ink);color:var(--on-dark)}
+.tile.head h2{font-size:var(--step-lead);letter-spacing:-.02em;line-height:1.05}
+.tile.head p{color:var(--on-dark-muted);font-size:var(--step-small)}
+.f1{background:var(--field-1)} .f2{background:var(--surface)} .f3{background:var(--bg);outline:8px solid var(--bg)}
+.tile.act{background:var(--accent);color:var(--accent-ink);text-decoration:none;transition:background-color 200ms ease}
+.tile.act:hover{background:#4e5c47}
+.tile.act strong{font-size:var(--step-lead);letter-spacing:-.02em;line-height:1.05}
+.tile.act svg{align-self:flex-end;transition:transform 240ms var(--ease-out)}
+.tile.act:hover svg{transform:translate(4px,-4px)}
 
-  .problem{display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:48px}
-  .why{list-style:none;counter-reset:w}
-  .why li{counter-increment:w;padding:18px 0;border-top:1px solid var(--line);display:grid;grid-template-columns:40px 1fr}
-  .why li::before{content:"0" counter(w);font-family:var(--mono);font-size:13px;color:var(--accent);padding-top:3px}
-  .why b{display:block}
-  .why span{color:var(--muted);font-size:15.5px}
-  .quote{background:var(--ink);color:var(--bg);border-radius:10px;padding:36px;font-family:var(--serif);font-size:26px;line-height:1.3;align-self:start}
-  .quote small{display:block;margin-top:20px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;opacity:.6}
+/* ---------- features: what we run ---------- */
+.run{padding:0 0 clamp(120px,14vw,220px)}
+.run h2{grid-column:1/-1;font-size:var(--step-head);margin-bottom:72px}
+.run .grp{grid-column:span 3;list-style:none}
+.run .grp:nth-of-type(1){grid-column:1/4}.run .grp:nth-of-type(2){grid-column:4/7}.run .grp:nth-of-type(3){grid-column:7/10}
+.run .grp h3{font-size:var(--step-lead);letter-spacing:-.02em;line-height:1.1;margin-bottom:1em;font-weight:600}
+.run .grp li{line-height:1.35;padding:4px 0}
+.run .grp button{all:unset;cursor:default;color:var(--muted);transition:color 160ms ease}
+.run .grp button:hover,.run .grp button:focus-visible,.run .grp button.on{color:var(--ink)}
+.run .grp button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.run .grp .sum{display:none}
+.run .desc{grid-column:10/13;grid-row:2;align-self:start;position:sticky;top:32px}
+.run .desc strong{display:block;font-weight:500;margin-bottom:6px}
+.run .desc p{color:var(--ink)}
 
-  .tools{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:48px}
-  .tool{background:var(--surface);padding:30px 26px}
-  .tool .mono{color:var(--accent)}
-  .tool h3{font-size:20px;font-weight:600;margin:10px 0 8px;letter-spacing:-.01em}
-  .tool p{color:var(--muted);font-size:15.5px}
+/* ---------- how it works: the first 30 days ---------- */
+.days{padding-bottom:clamp(120px,14vw,220px)}
+.days .top{padding:0 var(--m);margin-bottom:56px}
+.days h2{font-size:var(--step-head)}
+.row{display:grid;grid-template-columns:repeat(6,1fr);gap:24px;padding:0 var(--m);list-style:none}
+.moment{display:flex;flex-direction:column;min-width:0}
+.moment h3{font-size:var(--step-body);letter-spacing:-.01em;line-height:1.2}
+.moment p{color:var(--muted);margin-top:10px;font-size:var(--step-body)}
+.moment .when{color:var(--ink);font-weight:500}
+.moment img{margin-top:var(--gap);aspect-ratio:4/5;object-fit:cover;width:100%;filter:grayscale(1) contrast(1.05)}
 
-  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:48px}
-  .step{border-top:2px solid var(--ink);padding-top:18px}
-  .step h3{font-size:18px;font-weight:600;margin:6px 0}
-  .step p{color:var(--muted);font-size:15px}
+/* ---------- list: who it's for ---------- */
+.fit{padding-bottom:clamp(120px,14vw,220px)}
+.fit .wrap{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px;padding:0 var(--m)}
+.fit h2{grid-column:1/5;grid-row:1;font-size:var(--step-head)}
+.fit figure{grid-column:1/5;grid-row:2/4;align-self:end;overflow:hidden;margin-top:40px}
+.fit video{width:100%;aspect-ratio:5/4;object-fit:cover;object-position:0 100%;filter:grayscale(1) contrast(1.05)}
+.fit .lists{grid-column:6/13;grid-row:1/3;display:grid;grid-template-columns:1fr 1fr;column-gap:56px}
+.fit h3{font-size:var(--step-body);font-weight:400;color:var(--muted);margin:0 0 8px;letter-spacing:0;line-height:1.5}
+.fit ul{list-style:none;margin-bottom:40px}
+.fit li{display:flex;justify-content:space-between;align-items:baseline;gap:16px;min-height:38px;padding:6px 0}
+.fit li span:first-child{display:flex;gap:10px;align-items:baseline}
+.fit li span:first-child::before{content:"";flex:0 0 12px;height:12px;border-radius:50%;background:var(--accent);transform:translateY(1px)}
+.fit .no li span:first-child::before{background:var(--field-1)}
+.fit li em{font-style:normal;font-size:var(--step-small);color:var(--muted);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.fit .who{grid-column:6/13;grid-row:3;color:var(--ink);max-width:60ch}
 
-  .fit{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:48px}
-  .fit div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:28px}
-  .fit h3{font-size:17px;margin-bottom:14px}
-  .fit ul{list-style:none}
-  .fit li{padding:8px 0 8px 26px;position:relative;font-size:15.5px;border-top:1px solid var(--line)}
-  .fit li:first-child{border-top:0}
-  .fit .yes li::before{content:"✓";position:absolute;left:0;color:var(--good);font-weight:600}
-  .fit .no li::before{content:"×";position:absolute;left:2px;color:var(--muted)}
-  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:32px}
-  .chips span{border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:14px;color:var(--muted)}
+/* ---------- faq ---------- */
+.faq{background:var(--surface);padding:clamp(96px,11vw,180px) 0}
+.faq h2{grid-column:1/4;font-size:var(--step-head);align-self:start}
+.faq .text{grid-column:5/13;columns:2;column-gap:56px}
+.faq .text p{break-inside:avoid;margin-bottom:20px;line-height:1.55}
+.faq .text b{font-weight:500}
 
-  /* form */
-  .contact{display:grid;grid-template-columns:1fr 1.1fr;gap:56px;align-items:start}
-  form{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:30px;display:grid;gap:16px}
-  label{display:grid;gap:6px;font-size:14px;font-weight:500}
-  input,select,textarea{font:16px var(--sans);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:12px 13px;width:100%}
-  input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:transparent}
-  textarea{min-height:96px;resize:vertical}
-  .row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  form .btn{justify-content:center;padding:15px}
-  .note{font-size:13px;color:var(--muted)}
-  .ok{display:none;padding:14px;border-radius:6px;background:var(--soft);font-size:15px}
+/* ---------- contact ---------- */
+.contact{padding:clamp(120px,13vw,200px) 0 clamp(96px,10vw,160px)}
+.contact .say{grid-column:1/6}
+.contact h2{font-size:var(--step-head);margin-bottom:28px}
+.contact .say p.stmt{font-size:var(--step-lead);line-height:1.25;letter-spacing:-.01em;max-width:30ch}
+.contact .say img{width:160px;aspect-ratio:1;object-fit:cover;margin-top:40px;filter:grayscale(1)}
+.contact .say small{display:block;font-size:var(--step-small);color:var(--muted);margin-top:10px;max-width:30ch}
+form{grid-column:7/13;display:grid;grid-template-columns:1fr 1fr;gap:18px 20px;background:var(--surface);padding:clamp(20px,2.4vw,36px)}
+form label{display:grid;gap:6px;font-size:var(--step-small);font-weight:500}
+form .full{grid-column:1/-1}
+input,select,textarea{font:400 var(--step-body)/1.3 var(--font);color:var(--ink);background:var(--bg);border:1px solid #c9c4be;border-radius:0;padding:13px 12px;width:100%;transition:border-color 160ms ease}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ink)}
+textarea{min-height:104px;resize:vertical}
+form .btn{grid-column:1/-1;width:100%}
+form .btn[disabled]{opacity:.6;cursor:progress}
+.hp{position:absolute;left:-9999px}
+.status{grid-column:1/-1;font-size:var(--step-body)}
+.status:empty{display:none}
 
-  footer{padding:36px 0 48px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:14px;color:var(--muted)}
+/* ---------- footer ---------- */
+footer{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:8px;padding:0 10px 10px}
+footer .t{padding:20px;min-height:220px;display:flex;flex-direction:column;justify-content:space-between}
+.t1{grid-column:1/5;background:var(--surface)} .t2{grid-column:5/8;background:var(--surface)} .t3{grid-column:8/10;background:var(--field-1)} .t4{grid-column:10/13;background:var(--surface)}
+.t1 p{font-size:var(--step-lead);line-height:1.2;letter-spacing:-.02em;max-width:22ch}
+.t1 small,.t3 small{font-size:var(--step-small);color:var(--muted)}
+.t3 small{color:var(--ink)}
+.t2 ul{list-style:none}.t2 li{padding:3px 0}.t2 a{text-decoration:none}.t2 a:hover{text-decoration:underline}
+.t4 a{font-size:var(--step-lead);text-decoration-thickness:1px;text-underline-offset:4px}
+.t5{grid-column:1/9;background:var(--ink);color:var(--on-dark);min-height:320px!important;justify-content:center!important;align-items:center}
+.t5 span{font-size:9vw;font-weight:600;letter-spacing:-.05em;line-height:.9}
+.t6{grid-column:9/13;background:var(--accent);color:var(--accent-ink);min-height:320px!important;text-decoration:none;transition:background-color 200ms ease}
+.t6:hover{background:#4e5c47}
+.t6 strong{font-size:var(--step-lead);font-weight:600;letter-spacing:-.02em;line-height:1.1;max-width:12ch}
+.t6 svg{align-self:flex-end;transition:transform 240ms var(--ease-out)}
+.t6:hover svg{transform:translate(4px,-4px)}
+.credits{grid-column:1/-1;padding:20px;max-width:75ch;font-size:var(--step-small);color:var(--muted);line-height:1.55}
+.credits a{color:var(--muted)}
 
-  @media (max-width:880px){
-    .hero,.problem,.contact,.fit{grid-template-columns:1fr}
-    .tools{grid-template-columns:1fr}
-    .steps{grid-template-columns:1fr 1fr}
-    nav .links a:not(.btn){display:none}
-    section{padding:72px 0}
-    .hero{padding:40px 0 64px}
-  }
-  @media (max-width:520px){
-    .wrap{padding:0 16px}
-    .steps,.row{grid-template-columns:1fr}
-    .quote{font-size:22px;padding:28px}
-  }
+/* ---------- motion ---------- */
+.js .core h1 .ln span{transform:translateY(105%);animation:rise 900ms var(--ease-out) forwards}
+.js .core h1 .ln:nth-child(2) span{animation-delay:110ms}
+.js .core .readout,.js .core .btn{opacity:0;animation:fade 600ms var(--ease-out) 650ms forwards}
+.js .ring li button{opacity:0;animation:frame 700ms var(--ease-out) forwards;animation-delay:calc(var(--i) * 35ms + 150ms)}
+.js .ring.focus li button{animation:none;opacity:.45}
+.js .ring.focus li.on button{opacity:1}
+@keyframes rise{to{transform:none}}
+@keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes frame{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:none}}
+.js [data-in]>*{opacity:0;transform:translateY(24px);transition:opacity 700ms var(--ease-out),transform 700ms var(--ease-out);transition-delay:calc(var(--d,0) * 75ms)}
+.js [data-in].in>*{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .js .core h1 .ln span,.js .ring li button,.js .core .readout,.js .core .btn{animation:fade-only 400ms ease forwards;transform:none}
+  @keyframes fade-only{from{opacity:0}to{opacity:1}}
+  .js [data-in]>*{transform:none}
+  .intro figure img{animation:none}
+  html{scroll-behavior:auto}
+}
+
+/* ---------- tablet ---------- */
+@media (max-width:1000px){
+  .intro .col{grid-column:1/7}.intro figure{grid-column:7/13}
+  .run .grp:nth-of-type(1){grid-column:1/5}.run .grp:nth-of-type(2){grid-column:5/9}.run .grp:nth-of-type(3){grid-column:9/13}
+  .run .desc{grid-column:1/-1;grid-row:auto;position:static;margin-top:40px;max-width:44ch}
+  .board{grid-template-columns:repeat(3,1fr);gap:6px;padding:0 var(--m)}
+  .board{grid-auto-flow:dense}
+  .tile.fact{grid-column:span 2;aspect-ratio:auto;min-height:0}
+  .tile.fact strong{font-size:var(--step-head)}
+  .tile.pic{display:none}.tile.pic.k{display:block}
+  .row{grid-template-columns:repeat(3,1fr);row-gap:56px}
+  .fit h2,.fit figure,.fit .lists,.fit .who{grid-column:1/-1;grid-row:auto}.fit h2{margin-bottom:40px}.fit figure{margin:0 0 48px}
+  .faq h2{grid-column:1/-1;margin-bottom:40px}.faq .text{grid-column:1/-1}
+  .contact .say{grid-column:1/-1;margin-bottom:40px}form{grid-column:1/-1}
+  .t5,.t6{grid-column:1/-1}.t5 span{font-size:13vw}
+  .t1{grid-column:1/7}.t2{grid-column:7/13}.t3{grid-column:1/7}.t4{grid-column:7/13}
+}
+/* ---------- phone ---------- */
+@media (max-width:640px){
+  .grid{column-gap:16px}
+  .hero{--rx:66vw;--ry:66vw;--k:1;min-height:700px}
+  .ring li{width:calc(var(--pw) * 1px)}
+  .ring li.x{display:none}
+  .hero nav ul li:not(:last-child){display:none}
+  .core h1{font-size:10.5vw}
+  .readout{font-size:16px;min-height:5.5em}
+  .core .btn{width:100%}
+  .intro .col,.intro figure{grid-column:1/-1}.intro .col{padding-top:0;margin-bottom:48px;max-width:34ch}
+  .board .tile.act strong{font-size:var(--step-lead)}.tile.fact p{font-size:var(--step-small)}
+  .run h2{margin-bottom:40px}
+  .run .grp{grid-column:1/-1!important;margin-bottom:40px}
+  .run .grp li{line-height:1.4}.run .grp button{color:var(--ink)}
+  .run .grp .sum{display:block;color:var(--muted);margin-top:8px}
+  .run .desc{display:none}
+  .row{grid-template-columns:1fr 1fr;gap:40px 16px}
+  .moment p{font-size:var(--step-small)}
+  .fit .lists{grid-template-columns:1fr}
+  .fit li{min-height:44px}
+  .faq .text{columns:1}
+  form{grid-template-columns:1fr}
+  footer{grid-template-columns:1fr 1fr;gap:6px;padding:0 var(--m) var(--m)}
+  .t5{grid-column:1/-1;order:-2;min-height:160px!important}.t5 span{font-size:16vw}
+  .t6{grid-column:1/-1;order:-1;min-height:180px!important}
+  .t2,.t4{grid-column:span 1}.t1,.t3{grid-column:1/-1}
+  footer .t{min-height:0;gap:24px}
+}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <nav>
-    <a class="logo" href="#">leadgen<span>ai</span>.io</a>
-    <div class="links">
-      <a href="#problem">Why ads fail</a>
-      <a href="#tools">Tools</a>
-      <a href="#process">Process</a>
-      <a class="btn" href="#contact">Book a pipeline audit</a>
-    </div>
+
+<header class="hero" id="top">
+  <nav aria-label="Main">
+    <a class="wordmark" href="#top">leadgenai.io</a>
+    <ul>
+      <li><a href="#days">How it works</a></li>
+      <li><a href="#fit">Who it’s for</a></li>
+      <li><a href="#audit">Free audit</a></li>
+    </ul>
   </nav>
+  <ul class="ring" id="ring" aria-label="Example companies in a niche market and the buying signals we watch"></ul>
+  <div class="core">
+    <h1><span class="ln"><span>Your market fits</span></span><span class="ln"><span>on one screen</span></span></h1>
+    <p class="readout" id="readout" aria-live="polite">You sell to 800 companies, not 8 million people. We find the few that are getting ready to buy and book you the meeting.</p>
+    <a class="btn" href="#audit">Get a free audit</a>
+  </div>
+</header>
 
-  <header class="hero">
-    <div>
-      <p class="mono">Acquisition for niche B2B</p>
-      <h1>Your buyers aren't scrolling. <em>So stop paying to interrupt them.</em></h1>
-      <p class="lede">When your market is 800 companies, not 8 million consumers, Meta and Google Ads burn budget on the wrong people. We build AI-powered acquisition systems that find the exact accounts showing buying signals and put you in front of the decision-maker.</p>
-      <div class="cta-row">
-        <a class="btn" href="#contact">Book a free pipeline audit →</a>
-        <a class="btn ghost" href="#tools">See the toolkit</a>
+<main>
+<section class="intro" aria-labelledby="why">
+  <div class="grid">
+    <div class="col" data-in>
+      <h2 id="why" style="--d:0">Why ads stall</h2>
+      <p style="--d:1">Meta and Google Ads learn from volume. Your market doesn’t have any.</p>
+      <p class="soft" style="--d:2">An ad set needs about 50 conversions a week before the platform stops guessing. When everyone who could ever buy from you fits in a filing cabinet, it never gets there.</p>
+      <p class="soft" style="--d:3">Your buyers don’t search for what you sell either. A plant manager doesn’t type “wastewater compliance consultant” into Google. They wait until something changes: a permit, a new hire, an audit, an expansion.</p>
+      <p class="soft" style="--d:4">That change is public, and it happens weeks before they call anyone. We watch for it across your whole market, then reach the right person first.</p>
+    </div>
+    <figure data-in>
+      <img src="assets/cardfile-at-indiana-state-library-35426.jpg" width="960" height="1327" alt="Wooden card catalogue drawers in a library, rows of numbered brass handles" loading="lazy" decoding="async">
+      <figcaption>A complete market, the way it used to be kept. Card file, Indiana State Library.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="board" id="numbers" aria-labelledby="numbers-h">
+  <div class="tile fact head"><h2 id="numbers-h">Ads don’t add up</h2></div>
+  <div class="tile pic k"><i></i></div><div class="tile pic"><i></i></div><div class="tile pic"><i></i></div><div class="tile pic"><i></i></div><div class="tile pic"><i></i></div>
+  <div class="tile pic"><i></i></div><div class="tile pic"><i></i></div><div class="tile pic"><i></i></div><div class="tile pic"><i></i></div>
+  <div class="tile fact f1"><strong>$40–150</strong><p>a typical click on specialist B2B search terms, and most clicks are students, rivals and job seekers</p></div>
+  <div class="tile pic k"><i></i></div>
+  <div class="tile pic"><i></i></div>
+  <div class="tile fact f2"><strong>~50</strong><p>conversions a week each ad set needs to leave Meta’s learning phase</p></div>
+  <div class="tile pic k"><i></i></div><div class="tile pic"><i></i></div><div class="tile pic"><i></i></div>
+  <a class="tile fact act" href="#audit"><strong>Audit your market</strong><svg width="44" height="44" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="4" aria-hidden="true"><path d="M8 36 36 8M14 8h22v22"/></svg></a>
+  <div class="tile pic k"><i></i></div><div class="tile pic"><i></i></div><div class="tile pic"><i></i></div>
+  <div class="tile fact f1"><strong>6–10</strong><p>people in a typical B2B buying group. One click persuades none of them</p></div>
+  <div class="tile pic k"><i></i></div><div class="tile pic"><i></i></div>
+</section>
+
+<section class="run" aria-labelledby="run-h">
+  <div class="grid">
+    <h2 id="run-h">What we run for you</h2>
+    <ul class="grp" data-in>
+      <li><h3>Find the whole market</h3></li>
+      <li><button data-d="We build your total market from state registries, licence databases, trade directories and association rosters, not just what a data vendor happens to hold.">Account universe</button></li>
+      <li><button data-d="We study your last 20 wins to define fit by what actually closed: size, region, equipment, regulation, ownership.">Ideal customer profile</button></li>
+      <li><button data-d="Every account is scored on fit and timing, so the list is ranked every week, not once.">Fit and timing scores</button></li>
+      <li><button data-d="We find the plant manager, the finance lead and the technical gatekeeper, with verified email and direct dials.">Buying-group mapping</button></li>
+      <li><button data-d="We flag existing customers, partners and open deals so nobody gets a cold email they shouldn’t.">Exclusion lists</button></li>
+      <li><button data-d="Shared contacts, investors and board seats that turn a cold account into a warm introduction.">Warm intro paths</button></li>
+      <li class="sum">Every company that could buy from you, ranked.</li>
+    </ul>
+    <ul class="grp" data-in>
+      <li><h3>Watch for buying signals</h3></li>
+      <li><button data-d="Construction, expansion and environmental permits filed by companies in your market.">Permits and filings</button></li>
+      <li><button data-d="Job posts that reveal a project: a new compliance manager, a plant engineer, a head of procurement.">Hiring patterns</button></li>
+      <li><button data-d="A new COO or VP of Operations reviews vendors in their first 90 days.">Leadership changes</button></li>
+      <li><button data-d="Funding rounds, acquisitions and ownership changes that free up budget.">Funding and ownership</button></li>
+      <li><button data-d="Public contract awards and bids that create demand for subcontractors and suppliers.">Contract awards</button></li>
+      <li><button data-d="A company dropping a competitor, or adopting software that pairs with yours.">Vendor and tech changes</button></li>
+      <li><button data-d="New rules and inspection cycles that force a decision by a fixed date.">Regulatory deadlines</button></li>
+      <li><button data-d="Exhibitor lists and speaker rosters, weeks before the show.">Trade-show rosters</button></li>
+      <li class="sum">An alert the week an account starts moving.</li>
+    </ul>
+    <ul class="grp" data-in>
+      <li><h3>Reach them and report</h3></li>
+      <li><button data-d="Short emails written to the trigger and the role, sent from warmed domains, approved by you before launch.">Researched email</button></li>
+      <li><button data-d="Connection and message sequences from your profile or your sales team’s.">LinkedIn outreach</button></li>
+      <li><button data-d="Calls to direct dials when an account is hot, with notes in your CRM.">Phone follow-up</button></li>
+      <li><button data-d="A printed letter or package for the ten accounts that matter most this quarter.">Direct mail</button></li>
+      <li><button data-d="Qualified meetings booked straight into your calendar with context attached.">Meeting booking</button></li>
+      <li><button data-d="Accounts, contacts, signals and replies synced to HubSpot, Salesforce or Pipedrive.">CRM sync</button></li>
+      <li><button data-d="Cost per qualified meeting and pipeline created, every week. Not clicks.">Weekly pipeline report</button></li>
+      <li class="sum">Meetings with the right person, and the numbers behind them.</li>
+    </ul>
+    <div class="desc" aria-live="polite"><strong id="desc-t">Account universe</strong><p id="desc-p">We build your total market from state registries, licence databases, trade directories and association rosters, not just what a data vendor happens to hold.</p></div>
+  </div>
+</section>
+
+<section class="days" id="days" aria-labelledby="days-h">
+  <div class="top"><h2 id="days-h">The first 30 days</h2></div>
+  <ol class="row" data-in>
+    <li class="moment" style="--gap:96px"><h3>We study your wins</h3><p><span class="when">Days 1–5.</span> A call with you and your CRM export. What closed, how big, and what changed at the customer just before.</p><img src="assets/engineers-in-drafting-room-at-ruby-dam.jpg" width="960" height="830" alt="Engineers at drafting tables reviewing plans, 1939" loading="lazy"></li>
+    <li class="moment" style="--gap:40px"><h3>We list every company</h3><p><span class="when">Days 5–10.</span> Your full market, deduplicated and ranked. Usually a few hundred to a few thousand accounts.</p><img src="assets/macey-vertical-filing-cabinet-1903.jpg" width="960" height="1012" alt="Advertisement illustration of a vertical filing cabinet, 1903" loading="lazy"></li>
+    <li class="moment" style="--gap:128px"><h3>We wire up the signals</h3><p><span class="when">Days 8–14.</span> The permits, roles and filings that preceded your past wins, watched across every account.</p><img src="assets/siemens-halske-telephone-switchboard-elisa-telephone-museum.jpg" width="960" height="1447" alt="Antique telephone switchboard with brass jacks and cords" loading="lazy"></li>
+    <li class="moment" style="--gap:64px"><h3>You approve the words</h3><p><span class="when">Days 12–18.</span> Domains warmed, sequences written per trigger and role. Nothing goes out without your sign-off.</p><img src="assets/printing-press-05.jpg" width="960" height="720" alt="Old cast-iron printing press in a workshop" loading="lazy"></li>
+    <li class="moment" style="--gap:112px"><h3>The first accounts hear from you</h3><p><span class="when">Days 18–30.</span> Outreach starts with the accounts showing signals now. Replies route to you or to us.</p><img src="assets/gate-gourmet-loading-dock.jpg" width="960" height="959" alt="Loading dock with trucks backed up to the bays" loading="lazy"></li>
+    <li class="moment" style="--gap:48px"><h3>Then every week</h3><p><span class="when">Ongoing.</span> Meetings land on your calendar. We report cost per meeting and tune the signals against who replied.</p><img src="assets/sugar-pine-lumber-company-machine-shop-interior.jpg" width="960" height="780" alt="Interior of a lumber company machine shop, 1924" loading="lazy"></li>
+  </ol>
+</section>
+
+<section class="fit" id="fit" aria-labelledby="fit-h">
+  <div class="wrap">
+    <h2 id="fit-h">Who it’s for</h2>
+    <figure>
+      <video id="clip" autoplay muted loop playsinline preload="metadata" poster="assets/assembly-line-poster.jpg" width="818" height="480" aria-hidden="true"><source src="assets/assembly-line.webm" type="video/webm"></video>
+      <figcaption>A tractor assembly line: the kind of business that buys on contract, not on a click.</figcaption>
+    </figure>
+    <div class="lists" data-in>
+      <div class="yes">
+        <h3>A good fit</h3>
+        <ul>
+          <li><span>Contract value</span><em>$10k and up</em></li>
+          <li><span>Companies in your market</span><em>200–5,000</em></li>
+          <li><span>Paid ads tried</span><em>too costly, junk leads</em></li>
+          <li><span>Growth comes from</span><em>referrals, the founder</em></li>
+          <li><span>Sales cycle</span><em>1–12 months</em></li>
+          <li><span>Someone can take the calls</span><em>yes</em></li>
+        </ul>
+      </div>
+      <div class="no">
+        <h3>Probably not</h3>
+        <ul>
+          <li><span>Consumer products</span><em>use ads</em></li>
+          <li><span>Low-ticket e-commerce</span><em>under $1k</em></li>
+          <li><span>Thousands of leads a month</span><em>wrong tool</em></li>
+          <li><span>Search ads already profitable</span><em>keep them</em></li>
+          <li><span>No time for sales calls</span><em>not yet</em></li>
+        </ul>
       </div>
     </div>
+    <p class="who" data-in><span>Typical clients: industrial manufacturers, specialty distributors, engineering firms, commercial trades, compliance and environmental consultants, labs, logistics and cold chain, and vertical software.</span></p>
+  </div>
+</section>
 
-    <div class="feed" aria-label="Example buying-signal feed">
-      <header><span class="mono"><span class="dot"></span>Signal feed</span><span class="mono">Example</span></header>
-      <ul>
-        <li><span class="tag">PERMIT</span><b>Regional cold-storage operator filed a 40,000 sq ft expansion</b><small>Matches ICP: food logistics · 3 contacts found</small></li>
-        <li><span class="tag">HIRING</span><b>Mid-size manufacturer posted a "Quality Compliance Manager" role</b><small>Trigger: new ISO audit cycle · VP Ops identified</small></li>
-        <li><span class="tag">TECH</span><b>Engineering firm dropped its legacy ERP vendor</b><small>Replacement window open · sequence drafted</small></li>
-        <li><span class="tag">FUNDING</span><b>Specialty chemicals distributor closed a growth round</b><small>Budget unlocked · warm intro path via 2nd-degree</small></li>
-      </ul>
-    </div>
-  </header>
-</div>
-
-<section id="problem">
-  <div class="wrap">
-    <p class="mono">The problem</p>
-    <h2>Paid social and search were built for mass markets. Yours isn't one.</h2>
-    <div class="problem">
-      <ul class="why">
-        <li><div><b>Your audience is too small to target</b><span>Ad platforms need large audiences to optimize. A few thousand plant managers or compliance officers never exits the "learning phase."</span></div></li>
-        <li><div><b>Nobody searches for what you sell</b><span>Buyers of specialized services don't Google "industrial wastewater consultant near me." They ask peers, or they wait for a trigger event.</span></div></li>
-        <li><div><b>Clicks cost more than the lead is worth</b><span>B2B keywords run $40–$150 a click, and most go to students, competitors and tire-kickers.</span></div></li>
-        <li><div><b>Long cycles, many stakeholders</b><span>One ad click doesn't move a six-person buying committee through a nine-month decision.</span></div></li>
-      </ul>
-      <blockquote class="quote">
-        In niche B2B, the win isn't more traffic. It's knowing <em>which</em> 50 accounts are ready this quarter and reaching them first.
-        <small>The LeadGenAI approach</small>
-      </blockquote>
+<section class="faq" aria-labelledby="faq-h">
+  <div class="grid">
+    <h2 id="faq-h">Questions</h2>
+    <div class="text" data-in>
+      <p><b>How is this different from buying a list?</b> A list is a snapshot of whoever a vendor tracks. We build your whole market from primary sources, rank it every week by fit and timing, and run the outreach. You get meetings, not a spreadsheet.</p>
+      <p><b>Do you run ads at all?</b> No. If paid search already works for you profitably, keep it. This is for the markets where it doesn’t.</p>
+      <p><b>How soon do meetings start?</b> Outreach usually starts in the third or fourth week. How many meetings follow depends on your market size and offer, which the free audit estimates.</p>
+      <p><b>Who writes the messages?</b> We do, for each trigger and role. You approve every sequence before anything is sent.</p>
+      <p><b>Is cold outreach allowed?</b> Business-to-business email is legal in the US under CAN-SPAM when it is honest and offers an opt-out. For the UK and EU we follow legitimate-interest rules and handle opt-outs promptly.</p>
+      <p><b>Will this hurt our email domain?</b> We send from separate, warmed domains with low daily volumes, so your main domain is never at risk.</p>
+      <p><b>What do you need from us?</b> One kickoff call, a CRM export of past wins, approval of the messages, and someone to take the meetings.</p>
+      <p><b>Which CRMs do you work with?</b> HubSpot, Salesforce and Pipedrive directly. Anything else by CSV or Zapier.</p>
+      <p><b>What does it cost?</b> A monthly fee, quoted after the audit because it depends on market size and channels. The audit itself is free.</p>
+      <p><b>What’s in the free audit?</b> Your market size, the signals worth watching, a sample of accounts showing them now, and an honest view on whether this will work for you.</p>
     </div>
   </div>
 </section>
 
-<section id="tools">
-  <div class="wrap">
-    <p class="mono">The toolkit</p>
-    <h2>Acquisition tools built for small, high-value markets.</h2>
-    <p class="sub">Each system is set up for your market, plugs into your CRM and runs on signals instead of spend.</p>
-    <div class="tools">
-      <div class="tool"><span class="mono">01 / Find</span><h3>Precision account mapping</h3><p>AI builds your total addressable list from registries, licenses, trade directories and firmographics, so you see every company that could buy, not just the ones in a database.</p></div>
-      <div class="tool"><span class="mono">02 / Detect</span><h3>Buying-signal monitoring</h3><p>Continuous tracking of permits, job posts, filings, funding, leadership changes, tech swaps and site visits. You get alerts when an account enters a buying window.</p></div>
-      <div class="tool"><span class="mono">03 / Reach</span><h3>Multichannel outbound</h3><p>Researched, personal sequences across email, LinkedIn, phone and direct mail, written for the specific trigger and role. Not spray-and-pray templates.</p></div>
-      <div class="tool"><span class="mono">04 / Enrich</span><h3>Decision-maker discovery</h3><p>Verified emails and direct dials for the whole buying committee: the champion, the economic buyer and the technical gatekeeper.</p></div>
-      <div class="tool"><span class="mono">05 / Convert</span><h3>Niche authority content</h3><p>Industry benchmark reports, calculators and briefings that give your outreach a reason to exist and earn replies from experts.</p></div>
-      <div class="tool"><span class="mono">06 / Measure</span><h3>Pipeline dashboard</h3><p>Every signal, touch and reply tracked to meetings and revenue, so you know cost per qualified meeting, not cost per click.</p></div>
+<section class="contact" id="audit" aria-labelledby="audit-h">
+  <div class="grid">
+    <div class="say" data-in>
+      <h2 id="audit-h" style="--d:0">Get a free audit</h2>
+      <p class="stmt" style="--d:1">Tell us who you sell to. In 48 hours you get your market size, its signals and accounts in market now.</p>
+      <img style="--d:2" src="assets/anacortes-refinery-31911.jpg" width="960" height="712" alt="Oil refinery towers and tanks on a clear day" loading="lazy">
+      <small style="--d:3">One reply, no sales sequence. Prefer email? hello@leadgenai.io</small>
     </div>
-  </div>
-</section>
-
-<section id="process">
-  <div class="wrap">
-    <p class="mono">How it works</p>
-    <h2>From blank CRM to booked meetings in about 30 days.</h2>
-    <div class="steps">
-      <div class="step"><span class="mono">Week 1</span><h3>Audit &amp; ICP</h3><p>We map your best customers, deal sizes and the triggers that preceded each win.</p></div>
-      <div class="step"><span class="mono">Week 2</span><h3>Build the universe</h3><p>Full account list plus signal sources configured for your vertical.</p></div>
-      <div class="step"><span class="mono">Week 3</span><h3>Launch outreach</h3><p>Domains warmed, sequences approved by you, first triggered accounts contacted.</p></div>
-      <div class="step"><span class="mono">Week 4+</span><h3>Meetings &amp; tuning</h3><p>Qualified meetings land on your calendar. We refine weekly against reply data.</p></div>
-    </div>
-  </div>
-</section>
-
-<section id="fit">
-  <div class="wrap">
-    <p class="mono">Is this for you?</p>
-    <h2>Built for businesses with a small market and a big contract value.</h2>
-    <div class="fit">
-      <div class="yes"><h3>Good fit</h3><ul>
-        <li>Deal sizes of $10k+ or high lifetime value</li>
-        <li>Total market of a few hundred to a few thousand companies</li>
-        <li>Paid ads tried, with expensive or junk leads</li>
-        <li>Growth still depends on referrals and the founder's network</li>
-      </ul></div>
-      <div class="no"><h3>Probably not a fit</h3><ul>
-        <li>Consumer products or low-ticket e-commerce</li>
-        <li>Businesses that need thousands of small leads a month</li>
-        <li>Markets where broad paid search already works profitably</li>
-        <li>No capacity to take sales calls</li>
-      </ul></div>
-    </div>
-    <div class="chips">
-      <span>Industrial &amp; manufacturing</span><span>Engineering services</span><span>Compliance &amp; regulatory</span><span>Specialty distribution</span><span>Commercial construction trades</span><span>Lab &amp; scientific</span><span>Logistics &amp; cold chain</span><span>Vertical SaaS</span><span>Professional services</span>
-    </div>
-  </div>
-</section>
-
-<section id="contact">
-  <div class="wrap contact">
-    <div>
-      <p class="mono">Free pipeline audit</p>
-      <h2>See which accounts in your market are ready to buy right now.</h2>
-      <p class="sub">Tell us about your business. Within 48 hours we'll send a short audit with your market size, the buying signals worth tracking, and a sample list of in-market accounts. No obligation.</p>
-    </div>
-    <form id="lead-form">
-      <div class="row">
-        <label>Name<input name="name" required autocomplete="name"></label>
-        <label>Work email<input name="email" type="email" required autocomplete="email"></label>
-      </div>
-      <div class="row">
-        <label>Company<input name="company" required autocomplete="organization"></label>
-        <label>Website<input name="website" type="url" placeholder="https://"></label>
-      </div>
-      <div class="row">
-        <label>Average deal size
-          <select name="deal_size" required>
-            <option value="">Select…</option><option>Under $5k</option><option>$5k–$25k</option><option>$25k–$100k</option><option>$100k+</option>
-          </select>
-        </label>
-        <label>Tried paid ads?
-          <select name="ads_tried">
-            <option value="">Select…</option><option>Yes, didn't work</option><option>Yes, mixed results</option><option>No</option>
-          </select>
-        </label>
-      </div>
-      <label>Who is your ideal customer?<textarea name="icp" placeholder="e.g. Mid-size food processors in the Midwest that need FSMA compliance support"></textarea></label>
-      <button class="btn" type="submit">Get my free audit →</button>
-      <p class="ok" id="ok" role="status">Thanks! We'll be in touch within 48 hours.</p>
-      <p class="note">We'll only use your details to prepare your audit.</p>
+    <form id="lead-form" action="https://formsubmit.co/contact@duerrimports.com" method="POST">
+      <input type="hidden" name="_subject" value="New audit request from leadgenai.io">
+      <input type="hidden" name="_template" value="table">
+      <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <label>Name<input name="name" required autocomplete="name"></label>
+      <label>Work email<input name="email" type="email" required autocomplete="email"></label>
+      <label>Company<input name="company" required autocomplete="organization"></label>
+      <label>Website<input name="website" inputmode="url" autocomplete="url" placeholder="yourcompany.com"></label>
+      <label>Average contract value
+        <select name="contract_value" required>
+          <option value="">Choose one</option><option>Under $10k</option><option>$10k–$50k</option><option>$50k–$250k</option><option>$250k+</option>
+        </select>
+      </label>
+      <label>Tried paid ads?
+        <select name="paid_ads">
+          <option value="">Choose one</option><option>Yes, didn’t work</option><option>Yes, mixed results</option><option>No</option>
+        </select>
+      </label>
+      <label class="full">Who do you sell to?<textarea name="ideal_customer" placeholder="Mid-size food processors in the Midwest that need food-safety compliance help"></textarea></label>
+      <button class="btn" type="submit">Get a free audit</button>
+      <p class="status" id="status" role="status"></p>
     </form>
   </div>
 </section>
+</main>
 
-<div class="wrap">
-  <footer>
-    <span>© <span id="yr"></span> LeadGenAI · leadgenai.io</span>
-    <a href="mailto:hello@leadgenai.io">hello@leadgenai.io</a>
-  </footer>
-</div>
+<footer>
+  <div class="t t1"><p>Acquisition for markets too small for ads.</p><small>© <span id="yr">2026</span> LeadGenAI</small></div>
+  <div class="t t2"><ul><li><a href="#top">Top</a></li><li><a href="#days">How it works</a></li><li><a href="#fit">Who it’s for</a></li><li><a href="#audit">Free audit</a></li></ul></div>
+  <div class="t t3"><small>Reply time</small><p>Within 48 hours, on business days</p></div>
+  <div class="t t4"><small style="color:var(--muted)">Email</small><a href="mailto:hello@leadgenai.io">hello@leadgenai.io</a></div>
+  <div class="t t5"><span>leadgenai.io</span></div>
+  <a class="t t6" href="#audit"><strong>Get a free audit</strong><svg width="44" height="44" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="4" aria-hidden="true"><path d="M8 36 36 8M14 8h22v22"/></svg></a>
+  <p class="credits">Photographs via Wikimedia Commons, shown as examples of the industries we serve, not as clients:
+    <a href="https://commons.wikimedia.org/wiki/File:Machine_Shop_Men_GPN-2000-000364.jpg">Machine Shop Men</a>, NASA, public domain ·
+    <a href="https://commons.wikimedia.org/wiki/File:Sugar_Pine_Lumber_Company_Machine_Shop_Interior.jpg">Sugar Pine Lumber Co. machine shop</a>, public domain ·
+    <a href="https://commons.wikimedia.org/wiki/File:Gary_Plant_Tubular_Steel_Corporation.jpg">Gary Plant, Tubular Alloy Steel</a>, M. Marshall, public domain ·
+    <a href="https://commons.wikimedia.org/wiki/File:Engineers_in_drafting_room_at_Ruby_Dam,_1939_(49727297263).jpg">Engineers in drafting room at Ruby Dam</a>, Seattle Municipal Archives, CC BY 2.0 ·
+    <a href="https://commons.wikimedia.org/wiki/File:Drafting_room_methods_(1918)_(14778345195).jpg">Drafting room methods (1918)</a>, Internet Archive Book Images, no known restrictions ·
+    <a href="https://commons.wikimedia.org/wiki/File:Drafting_Room,_Bureau_of_Buildings,_Division_of_Design_and_Inspection_-_DPLA_-_dcf6494fc2a4c61ac821205d0b5b9c6c.jpg">Drafting Room, Bureau of Buildings</a>, Joseph E. Quigley, public domain ·
+    <a href="https://commons.wikimedia.org/wiki/File:Turkey_pickers,_Mills_County_Cold_Storage.jpg">Mills County Cold Storage</a>, public domain ·
+    <a href="https://commons.wikimedia.org/wiki/File:Textile_mill_in_Lowell,_Massachusetts,_January_1941.jpg">Textile mill in Lowell</a>, Jack Delano, public domain ·
+    <a href="https://commons.wikimedia.org/wiki/File:Eriksberg_shipyard_crane.jpg">Eriksberg shipyard crane</a>, W.carter, CC0 ·
+    <a href="https://commons.wikimedia.org/wiki/File:13_Industry_of_Australia_-_Steelworks_of_BlueScope_Steel_Limited_company_in_Port_Kembla,_Australia.jpg">Steelworks, Port Kembla</a>, Marek Ślusarczyk, CC BY 3.0 ·
+    <a href="https://commons.wikimedia.org/wiki/File:Anacortes_Refinery_31911.JPG">Anacortes Refinery</a>, Walter Siegmund, CC BY 2.5 ·
+    <a href="https://commons.wikimedia.org/wiki/File:Container-Terminal_Bremerhaven_02.jpg">Container Terminal Bremerhaven</a>, H. Zell, CC BY-SA 3.0 ·
+    <a href="https://commons.wikimedia.org/wiki/File:Cardfile_at_Indiana_State_Library_(35426).jpg">Cardfile at Indiana State Library</a>, Rhododendrites, CC BY-SA 4.0 ·
+    <a href="https://commons.wikimedia.org/wiki/File:Siemens_%26_Halske_telephone_switchboard_Elisa_Telephone_Museum.jpg">Siemens &amp; Halske switchboard</a>, Antti Leppänen, CC BY 4.0 ·
+    <a href="https://commons.wikimedia.org/wiki/File:Printing_press_05.jpg">Printing press 05</a>, Vis M, CC BY-SA 4.0 ·
+    <a href="https://commons.wikimedia.org/wiki/File:In-stream_inoculation_addition_while_molten_cast_iron_is_poured_to_a_green_sand_mold_in_a_foundry_in_Bangladesh.jpg">Cast iron pour</a>, Sm faysal, CC BY-SA 4.0 ·
+    <a href="https://commons.wikimedia.org/wiki/File:Macey_Vertical_Filing_Cabinet_1903.jpg">Macey Vertical Filing Cabinet</a>, public domain ·
+    <a href="https://commons.wikimedia.org/wiki/File:Gate_Gourmet_loading_dock.jpg">Loading dock</a>, Aebion, CC0 ·
+    <a href="https://commons.wikimedia.org/wiki/File:Milwaukee_Cold_Storage_building_1.jpg">Milwaukee Cold Storage</a>, Lightburst, CC BY-SA 4.0 ·
+    Video: <a href="https://commons.wikimedia.org/wiki/File:Assembly_line.webm">Assembly line</a>, Automotive garage, CC BY 4.0.
+  </p>
+</footer>
 
 <script>
+(() => {
   document.getElementById('yr').textContent = new Date().getFullYear();
-  // Set FORM_ENDPOINT to a Formspree / Basin / Zapier webhook URL to collect leads.
-  // Left empty, the form opens a pre-filled email to CONTACT_EMAIL instead.
-  const FORM_ENDPOINT = '';
-  const CONTACT_EMAIL = 'hello@leadgenai.io';
-  const form = document.getElementById('lead-form');
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const data = new FormData(form);
-    if (FORM_ENDPOINT) {
-      try {
-        const r = await fetch(FORM_ENDPOINT, {method:'POST', body:data, headers:{Accept:'application/json'}});
-        if (!r.ok) throw new Error();
-        form.querySelectorAll('label,.row,button').forEach(el => el.style.display = 'none');
-        document.getElementById('ok').style.display = 'block';
-        return;
-      } catch { alert('Something went wrong. Please email ' + CONTACT_EMAIL); return; }
-    }
-    const body = [...data.entries()].map(([k,v]) => k + ': ' + v).join('\n');
-    location.href = 'mailto:' + CONTACT_EMAIL + '?subject=' + encodeURIComponent('Pipeline audit request – ' + data.get('company')) + '&body=' + encodeURIComponent(body);
+
+  /* The ring: one frame per example company, each with the kind of signal we watch for. */
+  const A = 'assets/';
+  const frames = [
+    ['milwaukee-cold-storage-building-1.jpg','Cold-storage operator','filed for a 40,000 sq ft expansion',1],
+    ['13-industry-of-australia-steelworks-of-bluescope.jpg','Steel producer','posted a Director of Procurement role'],
+    ['container-terminal-bremerhaven-02.jpg','Port terminal','won a yard automation contract'],
+    ['drafting-room-bureau-of-buildings-division-of.jpg','Engineering firm','opened a second regional office'],
+    ['in-stream-inoculation-addition-while-molten-cast.jpg','Foundry','hired a new VP of Operations',1],
+    ['eriksberg-shipyard-crane.jpg','Shipyard','has a safety inspection due in March'],
+    ['anacortes-refinery-31911.jpg','Refinery','filed a new air-quality permit'],
+    ['machine-shop-men-gpn-2000-000364.jpg','Precision machine shop','closed a growth round'],
+    ['textile-mill-in-lowell-massachusetts-january-1941.jpg','Textile manufacturer','announced a plant relocation'],
+    ['gate-gourmet-loading-dock.jpg','Food distributor','is expanding into two new states',1],
+    ['drafting-room-methods-1918-14778345195.jpg','Design consultancy','dropped its legacy CAD vendor'],
+    ['gary-plant-tubular-alloy-steel-corporation.jpg','Tube mill','is hiring a Quality Compliance Manager'],
+    ['printing-press-05.jpg','Commercial printer','changed ownership last month'],
+    ['turkey-pickers-mills-county-cold-storage.jpg','Food processor','faces a new food-safety rule in Q3'],
+    ['siemens-halske-telephone-switchboard-elisa-telephone-museum.jpg','Telecom contractor','is bidding on a state network contract'],
+    ['sugar-pine-lumber-company-machine-shop-interior.jpg','Sawmill','listed new equipment in a trade filing'],
+    ['engineers-in-drafting-room-at-ruby-dam.jpg','Civil contractor','won a public water-infrastructure bid',1],
+    ['macey-vertical-filing-cabinet-1903.jpg','Records-management firm','exhibits at a trade show in six weeks'],
+  ];
+  const ring = document.getElementById('ring');
+  const readout = document.getElementById('readout');
+  const base = readout.innerHTML;
+  const n = frames.length;
+  frames.forEach(([src, who, what, lit], i) => {
+    const t = (i / n) * Math.PI * 2 - Math.PI / 2;     // start at the top
+    const c = Math.cos(t), s = Math.sin(t);
+    const w = Math.round(s > 0 ? 112 + 38 * s : 112 + 12 * s);  // small at the top, large at the bottom: the ring reads as tilted
+    let r = Math.atan2(310 * c, -560 * s) * 180 / Math.PI;   // tangent of the ellipse
+    if (r > 90) r -= 180; if (r < -90) r += 180;
+    r = Math.max(-24, Math.min(24, r));
+    const li = document.createElement('li');
+    if (lit) li.classList.add('lit');
+    if (i % 3 === 2) li.classList.add('x');              // hidden on phones: 12 frames remain
+    li.style.cssText = `--c:${c.toFixed(4)};--s:${s.toFixed(4)};--w:${w};--pw:${Math.round(64 + 24 * (w - 100) / 50)};--r:${r.toFixed(1)}deg;--ar:${i % 2 ? '3/4' : '4/3'};--i:${i}`;
+    li.innerHTML = `<button type="button" aria-label="${who}: ${what}"><img src="${A + src}" alt="" ${i < 8 ? '' : 'loading="lazy"'} decoding="async"></button>`;
+    const b = li.firstChild;
+    const show = () => {
+      ring.classList.add('focus');
+      ring.querySelectorAll('li.on').forEach(x => x.classList.remove('on'));
+      li.classList.add('on');
+      readout.innerHTML = `<b>${who}</b> ${what}.<small>Example of a buying signal we watch for</small>`;
+    };
+    const hide = () => { ring.classList.remove('focus'); li.classList.remove('on'); readout.innerHTML = base; };
+    b.addEventListener('pointerenter', show);
+    b.addEventListener('focus', show);
+    b.addEventListener('click', show);
+    b.addEventListener('pointerleave', hide);
+    b.addEventListener('blur', hide);
+    ring.appendChild(li);
   });
+
+  /* The board: one photograph cut across the tiles. */
+  const board = document.getElementById('numbers');
+  const cut = () => {
+    const br = board.getBoundingClientRect();
+    const W = br.width, H = br.height;
+    const k = Math.max(W / 960, H / 768);            // cover the whole board without stretching the photograph
+    const iw = 960 * k, ih = 768 * k, ox = (W - iw) / 2, oy = (H - ih) / 2;
+    board.querySelectorAll('.tile.pic i').forEach(i => {
+      const r = i.parentElement.getBoundingClientRect();
+      i.style.backgroundSize = `${iw}px ${ih}px`;
+      i.style.backgroundPosition = `${br.left - r.left + ox}px ${br.top - r.top + oy}px`;
+    });
+  };
+  cut(); addEventListener('resize', cut);
+
+  /* Capabilities: one description in a fixed place. */
+  const dt = document.getElementById('desc-t'), dp = document.getElementById('desc-p');
+  document.querySelectorAll('.run .grp button').forEach(b => {
+    const on = () => {
+      document.querySelectorAll('.run .grp button.on').forEach(x => x.classList.remove('on'));
+      b.classList.add('on'); dt.textContent = b.textContent; dp.textContent = b.dataset.d;
+    };
+    b.addEventListener('pointerenter', on); b.addEventListener('focus', on);
+  });
+  document.querySelector('.run .grp button').classList.add('on');
+
+  /* The one moving picture rests for people who ask for less motion. */
+  const clip = document.getElementById('clip');
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) { clip.removeAttribute('autoplay'); clip.pause(); }
+
+  /* Section entrances. */
+  document.querySelectorAll('[data-in]').forEach(el => [...el.children].forEach((c, i) => { if (!c.style.getPropertyValue('--d')) c.style.setProperty('--d', i); }));
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -12% 0px' });
+  document.querySelectorAll('[data-in]').forEach(el => io.observe(el));
+
+  /* The audit form: sent to the inbox through FormSubmit; without script it posts normally. */
+  const form = document.getElementById('lead-form'), status = document.getElementById('status');
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = form.querySelector('button[type=submit]');
+    btn.disabled = true; btn.textContent = 'Sending…'; status.textContent = '';
+    try {
+      const res = await fetch('https://formsubmit.co/ajax/contact@duerrimports.com', {
+        method: 'POST', headers: { Accept: 'application/json' }, body: new FormData(form)
+      });
+      const j = await res.json().catch(() => ({}));
+      if (!res.ok || j.success === 'false' || j.success === false) throw new Error(j.message || 'failed');
+      form.querySelectorAll('label,button').forEach(x => x.remove());
+      status.textContent = 'Thanks. Your audit request is in, and you’ll hear from us within 48 hours.';
+    } catch (err) {
+      btn.disabled = false; btn.textContent = 'Get a free audit';
+      status.innerHTML = 'That didn’t send. Please try again, or email <a href="mailto:hello@leadgenai.io">hello@leadgenai.io</a>.';
+    }
+  });
+})();
 </script>
 </body>
 </html>

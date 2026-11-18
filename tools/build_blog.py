@@ -96,6 +96,11 @@ def page(title, desc, canonical, body, extra_head=""):
 <meta property="og:description" content="{html.escape(desc, quote=True)}">
 <meta property="og:url" content="{canonical}">
 <meta property="og:type" content="article">
+<meta property="og:image" content="https://leadgenai.io/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+<meta property="og:image:alt" content="LeadGenAI: We build B2B lead systems">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0a0a0a">
 <link rel="icon" href="{FAVICON}">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

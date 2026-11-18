@@ -15,4 +15,5 @@ Sharp and technical. An operator talking to operators. Specific numbers, plain s
 ## Facts and constraints
 - No client logos, testimonials or results figures exist yet. Never invent them.
 - Form submissions go to the owner's inbox (contact@duerrimports.com) via a static form service. Hosted on GitHub Pages as one static HTML file.
-- Public contact address on the domain: hello@leadgenai.io (Google Workspace on the domain).
+- Public contact address on the domain: contact@leadgenai.io (as on the LinkedIn page).
+- Brand: logo is five white dots forming an L on black (LinkedIn company page leadgenai1). Services also listed there: Meta & Google Ads, PPC, SEO, CRO, landing pages & funnels, analytics & reporting.

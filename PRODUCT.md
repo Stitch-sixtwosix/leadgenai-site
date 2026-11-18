@@ -16,4 +16,5 @@ Sharp and technical. An operator talking to operators. Specific numbers, plain s
 - No client logos, testimonials or results figures exist yet. Never invent them.
 - Form submissions go to contact@leadgenai.io via a static form service. Hosted on GitHub Pages as one static HTML file.
 - Public contact address on the domain: contact@leadgenai.io (as on the LinkedIn page).
-- Brand: logo is five white dots forming an L on black (LinkedIn company page leadgenai1). Services also listed there: Meta & Google Ads, PPC, SEO, CRO, landing pages & funnels, analytics & reporting.
+- Brand: logo is five white dots forming an L on black (LinkedIn company page leadgenai1).
+- NOT an ad agency (James, 2026-11-18): "we set up niche lead systems that allow them to direct outreach potential clients in sophisticated markets that do not respond to google ads and meta ads or traditional outreach methods." Never list PPC, Meta/Google Ads, SEO or CRO as services.

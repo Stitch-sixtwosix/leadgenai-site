@@ -58,7 +58,7 @@ A buying signal is a public event that tends to come before a purchase of what y
 - **RFPs and bid lists.** These are obvious, but late. The earlier signals usually tell you an RFP is coming.
 - **Certifications and audits.** A company pursuing a new certification, or one with a published violation, has a dated problem to solve.
 
-Pick three to five signals that fit your sale. More than that and nobody will act on them.
+Pick three to five signals that fit your sale. More than that and nobody will act on them. For the full list of signal types, where to find each one and how to score them, see [B2B buying signals: what to track in a niche market](/blog/b2b-buying-signals/).
 
 ### 4. Check the list every week
 

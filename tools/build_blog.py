@@ -97,7 +97,7 @@ def page(title, desc, canonical, body, extra_head="", og_type="website"):
 <meta property="og:url" content="{canonical}">
 <meta property="og:type" content="{og_type}">
 <meta property="og:site_name" content="LeadGenAI">
-<meta property="og:image" content="https://leadgenai.io/assets/og-image.png">
+<meta property="og:image" content="https://leadgenai.io/assets/og-image.png?v=2">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="627">
 <meta property="og:image:alt" content="LeadGenAI: We build B2B lead systems">
@@ -111,7 +111,7 @@ def page(title, desc, canonical, body, extra_head="", og_type="website"):
 </head>
 <body>
 <div class="nav"><div class="in">
-  <a class="logo" href="/"><span class="mark">{MARK}</span>LeadGenAI</a>
+  <a class="logo" href="/"><span class="mark">{MARK}</span>LeadGen<span class="ai">AI</span></a>
   <nav><a href="/#how">How it works</a><a href="/blog/">Blog</a><a class="btn" href="/#audit">Get a free audit</a></nav>
 </div></div>
 {body}

@@ -111,7 +111,7 @@ def page(title, desc, canonical, body, extra_head="", og_type="website"):
 </head>
 <body>
 <div class="nav"><div class="in">
-  <a class="logo" href="/"><span class="mark">{MARK}</span>LeadGen<span class="ai">AI</span></a>
+  <a class="logo" href="/"><span class="mark">{MARK}</span><span>LeadGen<span class="ai">AI</span></span></a>
   <nav><a href="/#how">How it works</a><a href="/blog/">Blog</a><a class="btn" href="/#audit">Get a free audit</a></nav>
 </div></div>
 {body}

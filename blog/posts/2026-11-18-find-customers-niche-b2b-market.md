@@ -13,7 +13,7 @@ The good news is that a small market can be known completely. You can list every
 
 Three things work against volume tactics when the market is small and the sale is technical.
 
-**The audience is too small for ads to learn from.** Ad platforms need a steady flow of clicks and conversions to work out who to show an ad to. A market of a few hundred plant managers does not produce that. You end up paying for clicks from students, job seekers, competitors and vendors.
+**The audience is too small for ads to learn from.** Ad platforms need a steady flow of clicks and conversions to work out who to show an ad to. A market of a few hundred plant managers does not produce that. You end up paying for clicks from students, job seekers, competitors and vendors. (The full argument, with a test for your own account, is in [why Google Ads don't work for B2B niche markets](/blog/why-google-ads-dont-work-for-b2b/).)
 
 **Most accounts are not buying right now.** The LinkedIn B2B Institute and the Ehrenberg-Bass Institute popularized the "95-5 rule": at any given time, roughly 95% of business buyers are not in the market for a given category. In a market of 800 companies, that leaves about 40 that could buy this quarter. A message sent to everyone is wrong for 760 of them.
 

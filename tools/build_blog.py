@@ -83,7 +83,7 @@ def read_post(path):
 
 def nice(d): return datetime.date.fromisoformat(d).strftime("%B %-d, %Y")
 
-def page(title, desc, canonical, body, extra_head=""):
+def page(title, desc, canonical, body, extra_head="", og_type="website"):
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -95,7 +95,8 @@ def page(title, desc, canonical, body, extra_head=""):
 <meta property="og:title" content="{html.escape(title, quote=True)}">
 <meta property="og:description" content="{html.escape(desc, quote=True)}">
 <meta property="og:url" content="{canonical}">
-<meta property="og:type" content="article">
+<meta property="og:type" content="{og_type}">
+<meta property="og:site_name" content="LeadGenAI">
 <meta property="og:image" content="https://leadgenai.io/assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="627">
@@ -136,7 +137,8 @@ def main():
               "author": {"@type": "Organization", "name": "LeadGenAI", "url": SITE},
               "publisher": {"@type": "Organization", "name": "LeadGenAI", "url": SITE}}
         if p.get("keywords"): ld["keywords"] = p["keywords"]
-        head = f'<script type="application/ld+json">{json.dumps(ld)}</script>'
+        head = (f'<meta property="article:published_time" content="{p["date"]}">\n'
+                f'<script type="application/ld+json">{json.dumps(ld)}</script>')
         body = f"""<header class="hero"><div class="in"><p class="kicker"><i></i>LeadGenAI blog</p><h1>{html.escape(p['title'])}</h1>
 <p>{html.escape(p['description'])}</p><div class="meta">{nice(p['date'])}</div></div></header>
 <article>
@@ -144,7 +146,7 @@ def main():
 </article>
 {CTA}"""
         d = os.path.join(ROOT, "blog", p["slug"]); os.makedirs(d, exist_ok=True)
-        open(os.path.join(d, "index.html"), "w", encoding="utf-8").write(page(f"{p['title']} | LeadGenAI", p["description"], url, body, head))
+        open(os.path.join(d, "index.html"), "w", encoding="utf-8").write(page(f"{p['title']} | LeadGenAI", p["description"], url, body, head, og_type="article"))
     cards = "\n".join(f'<a class="card" href="/blog/{p["slug"]}/"><small>{nice(p["date"])}</small><h2>{html.escape(p["title"])}</h2><p>{html.escape(p["description"])}</p></a>' for p in posts) \
         or '<p class="empty">The first posts are on their way.</p>'
     body = f"""<header class="hero"><div class="in"><p class="kicker"><i></i>Blog</p><h1>Finding buyers in niche B2B markets</h1>

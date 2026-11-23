@@ -104,6 +104,8 @@ def page(title, desc, canonical, body, extra_head="", og_type="website"):
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0a0a0a">
 <link rel="icon" href="{FAVICON}">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/icon-512.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/blog/blog.css">

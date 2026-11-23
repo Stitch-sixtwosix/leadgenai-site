@@ -22,7 +22,7 @@ The reason signals matter so much in a small market is timing. The LinkedIn B2B 
 
 ## The B2B buying signals worth tracking, and where to find them
 
-There are seven families that cover most technical and industrial sales. You will not need all of them.
+There are seven families that cover most technical and industrial sales. You will not need all of them. (If you sell to manufacturing plants, the shortlist that matters most is in [lead generation for industrial suppliers](/blog/lead-generation-industrial-suppliers/).)
 
 ### 1. Hiring
 

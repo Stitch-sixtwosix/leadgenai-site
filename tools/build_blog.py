@@ -137,8 +137,13 @@ def main():
               "author": {"@type": "Organization", "name": "LeadGenAI", "url": SITE},
               "publisher": {"@type": "Organization", "name": "LeadGenAI", "url": SITE}}
         if p.get("keywords"): ld["keywords"] = p["keywords"]
+        crumbs = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": f"{SITE}/"},
+            {"@type": "ListItem", "position": 2, "name": "Blog", "item": f"{SITE}/blog/"},
+            {"@type": "ListItem", "position": 3, "name": p["title"], "item": url}]}
         head = (f'<meta property="article:published_time" content="{p["date"]}">\n'
-                f'<script type="application/ld+json">{json.dumps(ld)}</script>')
+                f'<script type="application/ld+json">{json.dumps(ld)}</script>\n'
+                f'<script type="application/ld+json">{json.dumps(crumbs)}</script>')
         body = f"""<header class="hero"><div class="in"><p class="kicker"><i></i>LeadGenAI blog</p><h1>{html.escape(p['title'])}</h1>
 <p>{html.escape(p['description'])}</p><div class="meta">{nice(p['date'])}</div></div></header>
 <article>

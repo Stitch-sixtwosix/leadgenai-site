@@ -95,7 +95,7 @@ Take a hypothetical firm that sells and installs industrial wastewater treatment
 5. **Buying group:** plant manager, EHS manager, maintenance or engineering lead, corporate environmental director, purchasing.
 6. **Outreach:** a note to the EHS manager that references the renewal date and the specific limit at issue, and a separate note to the plant manager about what an expansion does to treatment capacity.
 
-The numbers here are illustrative, but the shape is typical: a market you can count, a short list that changes every week, and a reason to call each account on it.
+The numbers here are illustrative, but the shape is typical: a market you can count, a short list that changes every week, and a reason to call each account on it. For a version of this aimed at suppliers that sell to plants, see [lead generation for industrial suppliers](/blog/lead-generation-industrial-suppliers/).
 
 ## Checklist
 

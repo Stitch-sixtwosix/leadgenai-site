@@ -76,7 +76,7 @@ For every account marked in market, identify the people who will be involved. Fo
 - Purchasing
 - Anyone who can stop it (IT, safety, corporate standards)
 
-Find a named person and a direct way to reach each one. Company websites, LinkedIn, conference speaker lists, permit applications and published papers all carry names.
+Find a named person and a direct way to reach each one. Company websites, LinkedIn, conference speaker lists, permit applications and published papers all carry names. The full method is in [how to find decision makers at a company](/blog/how-to-find-decision-makers-at-a-company/).
 
 ### 6. Reach out directly, with the reason attached
 

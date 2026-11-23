@@ -60,7 +60,7 @@ An industrial purchase of any size is almost never one person's decision. At a t
 - **EHS manager:** has a say when the product touches safety, emissions or waste.
 - **Quality manager:** involved when the product affects the finished part or a certification.
 
-Map these roles by name for each plant you are pursuing. The maintenance and engineering people are usually the right first contact because they feel the problem. Purchasing becomes important once there is a project, and approaching purchasing first, with no internal sponsor, is one of the most common reasons industrial outreach dies.
+Map these roles by name for each plant you are pursuing. The maintenance and engineering people are usually the right first contact because they feel the problem. Purchasing becomes important once there is a project, and approaching purchasing first, with no internal sponsor, is one of the most common reasons industrial outreach dies. For where to find these names when a plant keeps a low profile online, see [how to find decision makers at a company](/blog/how-to-find-decision-makers-at-a-company/).
 
 ## Step 4: Reach them with something specific
 

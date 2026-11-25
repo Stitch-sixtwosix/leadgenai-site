@@ -33,7 +33,7 @@ Start by writing down what a fitting account looks like in physical terms, not d
 
 Then build the list from sources that describe plants, not just companies. Industry classification codes are a starting point. Regulatory databases are often better: environmental permit records, food facility registrations, wastewater discharge permits and certification registries list physical sites with addresses. The result should be a list of sites, with the parent company attached, because a corporate headquarters and the plant that buys your product are often in different states.
 
-For most industrial suppliers this list lands somewhere between a few hundred and a few thousand sites. That is small enough to know every account by name, which is exactly the point.
+For most industrial suppliers this list lands somewhere between a few hundred and a few thousand sites. That is small enough to know every account by name, which is exactly the point. (How to do the count properly is in [total addressable market for a niche business](/blog/total-addressable-market-niche-business/).)
 
 ## Step 2: Track the signals that come before an industrial purchase
 

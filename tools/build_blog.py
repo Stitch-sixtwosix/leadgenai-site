@@ -136,6 +136,7 @@ def main():
         url = f"{SITE}/blog/{p['slug']}/"
         ld = {"@context": "https://schema.org", "@type": "BlogPosting", "headline": p["title"], "description": p["description"],
               "datePublished": p["date"], "dateModified": p["date"], "mainEntityOfPage": url,
+              "image": "https://leadgenai.io/assets/og-image.png?v=2",
               "author": {"@type": "Organization", "name": "LeadGenAI", "url": SITE},
               "publisher": {"@type": "Organization", "name": "LeadGenAI", "url": SITE}}
         if p.get("keywords"): ld["keywords"] = p["keywords"]

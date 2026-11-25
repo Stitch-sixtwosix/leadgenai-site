@@ -43,7 +43,7 @@ In a niche market, the list of possible customers is finite, and much of it is a
 - **Accreditation bodies.** Bodies such as A2LA publish directories of accredited laboratories. Holders of ISO and similar certificates can often be looked up through the certification body.
 - **Trade associations and trade shows.** Member directories and exhibitor lists are the market describing itself. Past years' exhibitor lists are often still online.
 - **Government buyers and suppliers.** SAM.gov and USAspending.gov show who bids on and wins federal work in your category.
-- **Industry codes.** NAICS codes are blunt, but they are a useful cross-check for how many companies should exist. Census County Business Patterns gives counts by code and county.
+- **Industry codes.** NAICS codes are blunt, but they are a useful cross-check for how many companies should exist. Census County Business Patterns gives counts by code and county. For a full counting method, see [total addressable market for a niche business](/blog/total-addressable-market-niche-business/).
 
 Merge the sources, remove duplicates, and split parent companies from individual sites when the buying decision is made at plant level. The result should be a number you trust: "there are 1,140 companies that fit, in 1,460 locations."
 

@@ -162,8 +162,13 @@ def main():
 <section class="list">
 {cards}
 </section>"""
+    blog_ld = {"@context": "https://schema.org", "@type": "Blog", "name": "LeadGenAI blog", "url": f"{SITE}/blog/",
+               "description": "Guides on market mapping, buying signals and direct outreach for niche B2B companies whose buyers ignore ads.",
+               "publisher": {"@type": "Organization", "name": "LeadGenAI", "url": SITE},
+               "blogPost": [{"@type": "BlogPosting", "headline": p["title"], "url": f"{SITE}/blog/{p['slug']}/", "datePublished": p["date"]} for p in posts]}
     open(os.path.join(ROOT, "blog/index.html"), "w", encoding="utf-8").write(
-        page("Blog | LeadGenAI: niche B2B lead systems", "Guides on market mapping, buying signals and direct outreach for niche B2B companies whose buyers ignore ads.", f"{SITE}/blog/", body))
+        page("Blog | LeadGenAI: niche B2B lead systems", "Guides on market mapping, buying signals and direct outreach for niche B2B companies whose buyers ignore ads.", f"{SITE}/blog/", body,
+             f'<script type="application/ld+json">{json.dumps(blog_ld)}</script>'))
     today = datetime.date.today().isoformat()
     urls = [(f"{SITE}/", today), (f"{SITE}/blog/", posts[0]["date"] if posts else today)] + [(f"{SITE}/blog/{p['slug']}/", p["date"]) for p in posts]
     sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + \

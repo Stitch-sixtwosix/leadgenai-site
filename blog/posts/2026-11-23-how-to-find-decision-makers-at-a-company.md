@@ -29,7 +29,7 @@ Titles change by industry and by company size, so write down what each role is u
 
 - **Industrial suppliers selling to plants:** maintenance manager, reliability engineer, plant manager, purchasing or category manager, EHS manager. (More detail in [lead generation for industrial suppliers](/blog/lead-generation-industrial-suppliers/).)
 - **Specialty contractors:** facilities director or property manager at the owner, project manager and estimator at the general contractor, the architect or engineer of record who writes the spec.
-- **Engineering firms:** capital projects manager, director of engineering, public works director for municipal clients, the procurement officer who runs the RFP.
+- **Engineering firms:** capital projects manager, director of engineering, public works director for municipal clients, the procurement officer who runs the RFP. (More in [how to generate leads for an engineering firm](/blog/lead-generation-engineering-firm/).)
 - **Testing, inspection and certification firms:** quality manager, regulatory affairs manager, EHS manager, the corporate compliance lead at multi-site companies.
 - **Vertical software:** the owner or general manager at small firms, the operations manager who runs the current system, the office manager or controller who handles billing.
 

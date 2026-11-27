@@ -29,7 +29,7 @@ Start with a short definition of a company that could buy from you, written as r
 - **Geography.** Where you can actually serve or sell.
 - **Exclusions.** Companies you cannot sell to: tied to a competitor by ownership, captive buyers of a parent company, or too regulated in a way you do not support.
 
-Example for an engineering firm that designs dust collection systems: "Facilities in the US that handle combustible dust (grain, wood, food powders, metals, plastics), with at least one site over 50 employees, not owned by a company that runs its own in-house engineering group."
+Example for an engineering firm that designs dust collection systems: "Facilities in the US that handle combustible dust (grain, wood, food powders, metals, plastics), with at least one site over 50 employees, not owned by a company that runs its own in-house engineering group." (For what an engineering firm does with that list next, see [how to generate leads for an engineering firm](/blog/lead-generation-engineering-firm/).)
 
 ## Step 2: Count from more than one source
 
